@@ -78,55 +78,60 @@
 		33E6B6111E5F8DB9005E00C5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				33E6B6031E5F8DAA005E00C5 /* HackerBooks2.xcdatamodeld */,
 				33E6B63B1E5FBA9A005E00C5 /* Book+Utils.swift */,
+				33E6B6031E5F8DAA005E00C5 /* HackerBooks2.xcdatamodeld */,
 			);
 			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		33E6B6121E5F8DC0005E00C5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				33E6B6001E5F8DAA005E00C5 /* Main.storyboard */,
 				33E6B6081E5F8DAA005E00C5 /* LaunchScreen.storyboard */,
+				33E6B6001E5F8DAA005E00C5 /* Main.storyboard */,
 			);
 			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		33E6B6131E5F8DC5005E00C5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				33E6B6381E5FB978005E00C5 /* Utils */,
 				33E6B6371E5FB8F3005E00C5 /* FetchedResults */,
+				33E6B6381E5FB978005E00C5 /* Utils */,
 				33E6B5FE1E5F8DAA005E00C5 /* BooksViewController.swift */,
 			);
 			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		33E6B6351E5FB07E005E00C5 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				33E6B5FC1E5F8DAA005E00C5 /* AppDelegate.swift */,
-				33E6B6111E5F8DB9005E00C5 /* Model */,
 				33E6B6131E5F8DC5005E00C5 /* Controller */,
-				33E6B6121E5F8DC0005E00C5 /* View */,
 				33E6B6431E5FBCC4005E00C5 /* Frameworks */,
 				33E6B6361E5FB252005E00C5 /* Helpers */,
+				33E6B6111E5F8DB9005E00C5 /* Model */,
+				33E6B6121E5F8DC0005E00C5 /* View */,
+				33E6B5FC1E5F8DAA005E00C5 /* AppDelegate.swift */,
 				33E6B6061E5F8DAA005E00C5 /* Assets.xcassets */,
 				33E6B60B1E5F8DAA005E00C5 /* Info.plist */,
 			);
 			name = App;
+			path = App;
 			sourceTree = "<group>";
 		};
 		33E6B6361E5FB252005E00C5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				33E6B6411E5FBC2F005E00C5 /* Constants.swift */,
+				33E6B6461E5FBD29005E00C5 /* Errors.swift */,
 				33E6B63D1E5FBBD9005E00C5 /* Files.swift */,
 				33E6B63F1E5FBBF5005E00C5 /* JSONProcessing.swift */,
-				33E6B6461E5FBD29005E00C5 /* Errors.swift */,
 			);
 			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		33E6B6371E5FB8F3005E00C5 /* FetchedResults */ = {
@@ -135,6 +140,7 @@
 				33E6B6391E5FB99F005E00C5 /* BooksViewControllerFetchedResults.swift */,
 			);
 			name = FetchedResults;
+			path = FetchedResults;
 			sourceTree = "<group>";
 		};
 		33E6B6381E5FB978005E00C5 /* Utils */ = {
@@ -142,6 +148,7 @@
 			children = (
 			);
 			name = Utils;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		33E6B6431E5FBCC4005E00C5 /* Frameworks */ = {
@@ -150,6 +157,7 @@
 				33E6B6441E5FBCDA005E00C5 /* Bundle.swift */,
 			);
 			name = Frameworks;
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +255,7 @@
 				33E6B6011E5F8DAA005E00C5 /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		33E6B6081E5F8DAA005E00C5 /* LaunchScreen.storyboard */ = {
@@ -255,6 +264,7 @@
 				33E6B6091E5F8DAA005E00C5 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -358,7 +368,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 42UB6JE5FK;
-				INFOPLIST_FILE = HackerBooks2/Info.plist;
+				INFOPLIST_FILE = HackerBooks2/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = and.erisco.HackerBooks2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -371,7 +381,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 42UB6JE5FK;
-				INFOPLIST_FILE = HackerBooks2/Info.plist;
+				INFOPLIST_FILE = HackerBooks2/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = and.erisco.HackerBooks2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
