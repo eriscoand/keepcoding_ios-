@@ -1,14 +1,35 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0SQ-uw-ZZG">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="qEu-TG-SJJ">
+            <objects>
+                <navigationController id="0SQ-uw-ZZG" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Iri-PB-iE3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="29I-Fu-o6l"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8ZJ-Ni-4th" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1044" y="123"/>
+        </scene>
+        <!--HackerBooks-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="HackerBooks2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +37,71 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" misplaced="YES" indicatorStyle="black" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jNb-pZ-KaF">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.96109612944162437" green="0.96109612944162437" blue="0.96109612944162437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NBz-42-ETP">
+                                    <size key="itemSize" width="168" height="233"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="orC-71-UJP">
+                                        <rect key="frame" x="0.0" y="0.0" width="168" height="233"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="168" height="233"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oAB-N3-MEX">
+                                                    <rect key="frame" x="0.0" y="-15" width="183" height="190"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ein-Re-leG">
+                                                    <rect key="frame" x="8" y="182" width="152" height="28"/>
+                                                    <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIQ-dP-fJZ">
+                                                    <rect key="frame" x="8" y="204" width="152" height="12"/>
+                                                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="10"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottomMargin" secondItem="oAB-N3-MEX" secondAttribute="bottom" constant="50" id="P5Y-nM-4ys"/>
+                                            <constraint firstItem="oAB-N3-MEX" firstAttribute="trailingMargin" secondItem="orC-71-UJP" secondAttribute="trailingMargin" constant="15" id="SAc-uR-0ch"/>
+                                            <constraint firstItem="ein-Re-leG" firstAttribute="leading" secondItem="orC-71-UJP" secondAttribute="leadingMargin" id="SC3-YO-OG1"/>
+                                            <constraint firstItem="ein-Re-leG" firstAttribute="top" secondItem="oAB-N3-MEX" secondAttribute="bottom" constant="7" id="Tms-Vx-Sqh"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="ein-Re-leG" secondAttribute="trailing" id="UjY-Hd-ZJW"/>
+                                            <constraint firstItem="fIQ-dP-fJZ" firstAttribute="top" secondItem="ein-Re-leG" secondAttribute="bottom" constant="-6" id="Upn-mh-mGu"/>
+                                            <constraint firstItem="oAB-N3-MEX" firstAttribute="leadingMargin" secondItem="orC-71-UJP" secondAttribute="leadingMargin" id="VYC-ZM-ORb"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="ein-Re-leG" secondAttribute="bottom" constant="15" id="Yzh-VJ-vOO"/>
+                                            <constraint firstItem="fIQ-dP-fJZ" firstAttribute="leading" secondItem="orC-71-UJP" secondAttribute="leadingMargin" id="ZNF-U7-YQp"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="fIQ-dP-fJZ" secondAttribute="trailing" id="hnd-YB-8Vl"/>
+                                            <constraint firstItem="oAB-N3-MEX" firstAttribute="topMargin" secondItem="orC-71-UJP" secondAttribute="topMargin" constant="-15" id="xEp-IN-HOV"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="jNb-pZ-KaF" firstAttribute="leadingMargin" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-15" id="J0e-m3-O08"/>
+                            <constraint firstAttribute="trailing" secondItem="jNb-pZ-KaF" secondAttribute="trailing" id="NuF-wt-nEM"/>
+                            <constraint firstItem="jNb-pZ-KaF" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="VMl-B8-LoD"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jNb-pZ-KaF" secondAttribute="bottom" id="cLJ-4A-KWa"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="HackerBooks" id="UpE-WZ-xy4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="122.78860569715144"/>
         </scene>
     </scenes>
 </document>
