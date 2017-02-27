@@ -30,7 +30,6 @@ func decodeBooks(books json: JSONArray, context: NSManagedObjectContext) throws{
     
 }
 
-
 func decodeBook(book json: JSONDictonary, context: NSManagedObjectContext) throws{
     
     let book = Book(context: context)
@@ -71,4 +70,3 @@ func decodeBook(book json: JSONDictonary, context: NSManagedObjectContext) throw
     book.pdf = pdf
     
 }
-

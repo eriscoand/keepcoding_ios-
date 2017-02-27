@@ -29,11 +29,15 @@ extension BooksViewController:  UICollectionViewDelegate, UICollectionViewDataSo
         return cell!
     }
     
-    func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? {
-        guard let sectionInfo = fetchedResultsController?.sections?[section] else { fatalError("Unexpected Section") }
-        return sectionInfo.name
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        var v : UICollectionReusableView! = nil
+        if kind == UICollectionElementKindSectionHeader {
+            v = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier:"SectionHeader", for: indexPath)
+            let lab = v.subviews[0] as! UILabel
+            lab.text = self.fetchedResultsController?.sections?[indexPath.section].name
+        }
+        return v
     }
     
-    func collectionView:view
     
 }

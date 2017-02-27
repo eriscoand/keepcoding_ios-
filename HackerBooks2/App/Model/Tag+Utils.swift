@@ -17,9 +17,17 @@ extension Tag {
         for each in arr{
             let tag = Tag(context: context)
             tag.name = each
+            tag.order = 999
             ret.insert(tag)
         }
         return ret
+    }
+    
+    class func createOtherTags(context: NSManagedObjectContext){
+        let favourites = Tag(context: context)
+        favourites.name = CONSTANTS.FavouritesName
+        favourites.order = 1
+        saveContext(context: context)
     }
     
 }

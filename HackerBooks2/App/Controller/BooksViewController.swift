@@ -12,9 +12,9 @@ import CoreData
 class BooksViewController: UIViewController {
     
     var context: NSManagedObjectContext?
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var sectionHeader: UILabel!
+    
     var fetchedResultsController: NSFetchedResultsController<BookTag>? = nil
 
     
@@ -29,7 +29,12 @@ class BooksViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
-            
+            if identifier == "ShowSingleBook" {
+                let selectedIndex = collectionView.indexPathsForSelectedItems?.last
+                let booktag = fetchedResultsController?.object(at: selectedIndex!)
+                let vc = segue.destination as! SingleBookViewController
+                vc.booktag = booktag
+            }
         }
     }
 

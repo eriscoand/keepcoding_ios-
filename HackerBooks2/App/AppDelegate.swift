@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.context = container.viewContext
         
         if(isFirstTime()){
+            loadingViewController()
             JSONInteractor(manager: DownloadAsyncGCD()).execute(urlString: CONSTANTS.JsonUrl, context: context!) { (Void) in
                 setAppLaunched()
                 self.loadViewController()
@@ -46,6 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         saveContext(context: context)
     }
     
+    func loadingViewController(){
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let loadController: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "LoadingController") 
+        
+        self.window?.rootViewController = loadController
+    }
+    
     func loadViewController(){
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -63,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let navController = window?.rootViewController as? UINavigationController,
             let initialViewController = navController.topViewController as? BooksViewController{
             initialViewController.context = self.context
-            initialViewController.fetchedResultsController = createFetch(context: context!)
+            initialViewController.fetchedResultsController = createBooksFetch(context: context!)
         }
     }
 

@@ -19,6 +19,8 @@ public class DownloadAsyncGCD: DownloadAsync {
                 let json_data = try getFileFrom(urlString: urlString)
                 let json = try jsonLoadFromData(dataInput: json_data)
                 try decodeBooks(books: json, context: context)
+                Tag.createOtherTags(context: context)
+                
                 saveContext(context: context)
                 
                 DispatchQueue.main.async {
@@ -37,21 +39,18 @@ public class DownloadAsyncGCD: DownloadAsync {
     public func downloadData(urlString: String, completion: @escaping (Data) -> Void, onError:  ErrorClosure?){
         
         DispatchQueue.global().async {
-            
-            if let url = URL(string: urlString){
-                do{
-                    let data = try Data(contentsOf: url)
+            do{
+                let data = try getFileFrom(urlString: urlString)
                     
-                    DispatchQueue.main.async {
-                        completion(data)
-                    }
-                    
-                } catch {
-                    if let errorClosure = onError {
-                        errorClosure(error)
-                    }
-                    
+                DispatchQueue.main.async {
+                    completion(data)
                 }
+                    
+            } catch {
+                if let errorClosure = onError {
+                    errorClosure(error)
+                }
+                    
             }
         }
     

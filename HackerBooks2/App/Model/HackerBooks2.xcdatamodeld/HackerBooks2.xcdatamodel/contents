@@ -18,12 +18,13 @@
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="booktag" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookTag" inverseName="tag" inverseEntity="BookTag" syncable="YES"/>
     </entity>
     <elements>
         <element name="Author" positionX="-63" positionY="-18" width="128" height="75"/>
         <element name="Book" positionX="250" positionY="45" width="128" height="135"/>
-        <element name="Tag" positionX="522" positionY="-30" width="128" height="75"/>
         <element name="BookTag" positionX="144" positionY="63" width="128" height="75"/>
+        <element name="Tag" positionX="522" positionY="-30" width="128" height="90"/>
     </elements>
 </model>
