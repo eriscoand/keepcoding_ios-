@@ -8,83 +8,9 @@
 
 import Foundation
 import UIKit
-
-typealias JSONObject = AnyObject;
-typealias JSONDictonary = [String: JSONObject];
-typealias JSONArray = [JSONDictonary];
-
+import CoreData
 
 //MARK: - Functions
-func decodeBook(book json: JSONDictonary) throws -> Book {
-    
-    var image = Data()
-    
-    //Try to load the image from the json's url, if not it loads the bacon image
-    if let urlImageString = json["image_url"] as? String {
-        image = try getFileFrom(stringUrl: urlImageString)
-    }else{
-        let urlImageString = CONSTANTS.DefaultImage
-        if let defaultImageURL = Bundle.main.url(forResource: urlImageString){
-            image = try! Data(contentsOf: defaultImageURL)
-        }
-    }
-    
-    //We initially load the bacon ipsum pdf
-    let defaultPDFURLString = CONSTANTS.DefaultPdf
-    guard let defaultPDFURL = Bundle.main.url(forResource: defaultPDFURLString),
-        let pdf = try? Data(contentsOf: defaultPDFURL) else{
-            throw HackerBookError.resourcePointedByUrlNotReachable
-    }
-    
-    //we will need the pdf url for the webview
-    guard let urlPDF = json["pdf_url"] as? String else{
-        throw HackerBookError.wrongJsonFormat
-    }
-    
-    guard let title = json["title"] as? String else{
-        throw HackerBookError.wrongJsonFormat
-    }
-    
-    var authors = Set<Author>()
-    if let authorsString = json["authors"] as? String{
-        //authors = Author.fromStringToSet(s: authorsString)
-    }
-    
-    var tags = Set<Tag>()
-    if let tagsString = json["tags"] as? String{
-        //tags = Tag.fromStringToSet(s: tagsString)
-    }
-    
-    /*return Book(title: title,
-                authors: authors,
-                tags: tags,
-                thumbnail: image,
-                pdf: pdf,
-                urlPDF : urlPDF)*/
-    
-}
-
-func decodeBooks(books json: JSONArray) throws -> Set<Book>{
-    
-    let bookArray = try json.flatMap({try decodeBook(book: $0)})
-    
-    return Book.from(array: bookArray)
-    
-}
-
-func decodeTags(forBooks books: Set<Book>) throws -> Set<Tag>{
-    
-    var tags = Set<Tag>()
-    
-    for book in books{
-        for tag in book.tags{
-            tags.insert(tag)
-        }
-    }
-    
-    return tags
-    
-}
 
 func jsonLoadFromData(dataInput data: Data) throws -> JSONArray{
     
@@ -98,4 +24,51 @@ func jsonLoadFromData(dataInput data: Data) throws -> JSONArray{
     
 }
 
+func decodeBooks(books json: JSONArray, context: NSManagedObjectContext) throws{
+    
+    let _ = try json.flatMap({try decodeBook(book: $0, context: context)})
+    
+}
+
+
+func decodeBook(book json: JSONDictonary, context: NSManagedObjectContext) throws{
+    
+    let book = Book(context: context)
+    
+    var image = CONSTANTS.DefaultImage
+    if let urlImageString = json["image_url"] as? String {
+        image = urlImageString
+    }
+    
+    var pdf = CONSTANTS.DefaultPdf
+    if let urlPDFString = json["pdf_url"] as? String{
+        pdf = urlPDFString
+    }
+    
+    guard let title = json["title"] as? String else{
+        throw HackerBookError.wrongJsonFormat
+    }
+    
+    var authors = NSSet()
+    if let authorsString = json["authors"] as? String{
+        authors = Author.fromStringToSet(s: authorsString, context: context) as NSSet
+    }
+    
+    if let tagsString = json["tags"] as? String{
+        let tags = Tag.fromStringToSet(s: tagsString, context: context)
+        for each in tags{
+            let booktag = BookTag(context: context)
+            booktag.book = book
+            booktag.tag = each
+        }
+    }
+    
+    book.title = title
+    
+    book.addToAuthors(authors)
+    
+    book.thumbnail = image
+    book.pdf = pdf
+    
+}
 

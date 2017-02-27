@@ -10,19 +10,24 @@ import Foundation
 import CoreData
 
 extension Book {
-    class func fetchRequestOrderedByName() -> NSFetchRequest<Book>{
+    
+    class func from(array arr: [Book]) -> Set<Book>{
+        var ret = Set<Book>()
         
-        let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
+        for book in arr{
+            ret.insert(book)
+        }
         
-        // Set the batch size to a suitable number.
-        fetchRequest.fetchBatchSize = 20
-        
-        // Edit the sort key as appropriate.
-        let sortDescriptor = NSSortDescriptor(key: "title", ascending: false)
-        
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        return fetchRequest
-        
+        return ret
+    }
+    
+    var authorsString : String{
+        get{
+            var ret = ""
+            for author in authors!{
+                ret += (author as AnyObject).name + " - "
+            }
+            return ret
+        }
     }
 }

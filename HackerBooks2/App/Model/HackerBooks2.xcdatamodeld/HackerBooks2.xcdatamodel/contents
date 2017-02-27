@@ -10,15 +10,20 @@
         <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="authors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Author" inverseName="books" inverseEntity="Author" syncable="YES"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="books" inverseEntity="Tag" syncable="YES"/>
+        <relationship name="booktag" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookTag" inverseName="book" inverseEntity="BookTag" syncable="YES"/>
+    </entity>
+    <entity name="BookTag" representedClassName="BookTag" syncable="YES" codeGenerationType="class">
+        <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="booktag" inverseEntity="Book" syncable="YES"/>
+        <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="booktag" inverseEntity="Tag" syncable="YES"/>
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="tags" inverseEntity="Book" syncable="YES"/>
+        <relationship name="booktag" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookTag" inverseName="tag" inverseEntity="BookTag" syncable="YES"/>
     </entity>
     <elements>
         <element name="Author" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="Book" positionX="250" positionY="45" width="128" height="135"/>
         <element name="Tag" positionX="522" positionY="-30" width="128" height="75"/>
-        <element name="Book" positionX="250" positionY="45" width="128" height="133"/>
+        <element name="BookTag" positionX="144" positionY="63" width="128" height="75"/>
     </elements>
 </model>

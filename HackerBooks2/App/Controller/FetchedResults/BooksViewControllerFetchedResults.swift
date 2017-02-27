@@ -10,30 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-
 extension BooksViewController: NSFetchedResultsControllerDelegate {
-    
-    var fetchedResultsController: NSFetchedResultsController<Book> {
-        if _fetchedResultsController != nil {
-            return _fetchedResultsController!
-        }
-        
-        // Edit the section name key path and cache name if appropriate.
-        // nil for section name key path means "no sections".
-        _fetchedResultsController = NSFetchedResultsController(fetchRequest: Book.fetchRequestOrderedByName(), managedObjectContext: self.context!, sectionNameKeyPath: nil, cacheName: "Master")
-        _fetchedResultsController?.delegate = self
-        
-        do {
-            try _fetchedResultsController!.performFetch()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
-        
-        return _fetchedResultsController!
-    }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
     }
@@ -60,7 +37,7 @@ extension BooksViewController: NSFetchedResultsControllerDelegate {
         }
     }
     
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    func controllerDidChangeContent(controller: NSFetchedResultsController<NSFetchRequestResult>) {
     }
     
 }

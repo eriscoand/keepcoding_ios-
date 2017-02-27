@@ -12,12 +12,19 @@ import CoreData
 class BooksViewController: UIViewController {
     
     var context: NSManagedObjectContext?
-    @IBOutlet weak var collectionView: UICollectionView!
     
-    var _fetchedResultsController: NSFetchedResultsController<Book>? = nil
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    var fetchedResultsController: NSFetchedResultsController<BookTag>? = nil
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let _ = context else { return }
+        
+        fetchedResultsController?.delegate = self
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

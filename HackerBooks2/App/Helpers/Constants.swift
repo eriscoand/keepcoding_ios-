@@ -12,6 +12,8 @@ struct CONSTANTS {
     
     static let JsonUrl = "https://t.co/K9ziV0z3SJ"
     
+    static let DBName = "HackerBooks2"
+    
     static let DefaultImage = "bacon.jpg"
     static let DefaultPdf = "bacon_ipsum.pdf"
     
