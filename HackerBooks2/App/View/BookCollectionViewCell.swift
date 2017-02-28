@@ -26,8 +26,10 @@ class BookCollectionViewCell: UICollectionViewCell {
             
             bookImage.image = UIImage(named: "Dummy")
             
-            DataInteractor(manager: DownloadAsyncGCD()).execute(urlString: (newValue.book?.thumbnail)!) { (data: Data) in
-                self.bookImage.image = UIImage(data: data)
+            if let th = newValue.book?.thumbnail {
+                DataInteractor(manager: DownloadAsyncGCD()).execute(urlString: th) { (data: Data) in
+                    self.bookImage.image = UIImage(data: data)
+                }
             }
             
         }

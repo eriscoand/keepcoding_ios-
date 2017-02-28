@@ -25,6 +25,7 @@
 		33B835371E64A3390030A440 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B835361E64A3390030A440 /* LoadingViewController.swift */; };
 		33B835391E64A4F40030A440 /* SingleBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B835381E64A4F40030A440 /* SingleBookViewController.swift */; };
 		33B8353B1E64A5380030A440 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B8353A1E64A5380030A440 /* PDFViewController.swift */; };
+		33B8353D1E64D3230030A440 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B8353C1E64D3230030A440 /* MapViewController.swift */; };
 		33E6B5FD1E5F8DAA005E00C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E6B5FC1E5F8DAA005E00C5 /* AppDelegate.swift */; };
 		33E6B5FF1E5F8DAA005E00C5 /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E6B5FE1E5F8DAA005E00C5 /* BooksViewController.swift */; };
 		33E6B6021E5F8DAA005E00C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33E6B6001E5F8DAA005E00C5 /* Main.storyboard */; };
@@ -59,6 +60,7 @@
 		33B835361E64A3390030A440 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		33B835381E64A4F40030A440 /* SingleBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleBookViewController.swift; sourceTree = "<group>"; };
 		33B8353A1E64A5380030A440 /* PDFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDFViewController.swift; path = HackerBooks2/App/Controller/PDFViewController.swift; sourceTree = SOURCE_ROOT; };
+		33B8353C1E64D3230030A440 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		33E6B5F91E5F8DAA005E00C5 /* HackerBooks2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerBooks2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E6B5FC1E5F8DAA005E00C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33E6B5FE1E5F8DAA005E00C5 /* BooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				33E6B6381E5FB978005E00C5 /* Utils */,
 				33B835361E64A3390030A440 /* LoadingViewController.swift */,
 				33E6B5FE1E5F8DAA005E00C5 /* BooksViewController.swift */,
+				33B8353C1E64D3230030A440 /* MapViewController.swift */,
 				33B835381E64A4F40030A440 /* SingleBookViewController.swift */,
 				33B8353A1E64A5380030A440 /* PDFViewController.swift */,
 			);
@@ -331,6 +334,7 @@
 				335FB64F1E63799D00A7DCD7 /* FirstTime.swift in Sources */,
 				335FB63C1E619A9700A7DCD7 /* Author+Utils.swift in Sources */,
 				33E6B6421E5FBC2F005E00C5 /* Constants.swift in Sources */,
+				33B8353D1E64D3230030A440 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

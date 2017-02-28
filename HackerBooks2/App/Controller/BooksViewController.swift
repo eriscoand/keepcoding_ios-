@@ -23,19 +23,39 @@ class BooksViewController: UIViewController {
         
         guard let _ = context else { return }
         
+        subscribeFavouritesChanged()
+        
         fetchedResultsController?.delegate = self
 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
-            if identifier == "ShowSingleBook" {
+            switch identifier
+            {
+            case "ShowSingleBook":
                 let selectedIndex = collectionView.indexPathsForSelectedItems?.last
                 let booktag = fetchedResultsController?.object(at: selectedIndex!)
                 let vc = segue.destination as! SingleBookViewController
                 vc.booktag = booktag
+                vc.context = self.context
+            default:
+                break
             }
         }
+    }
+    
+    func subscribeFavouritesChanged(){
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(favouritesDidChanged),
+                       name: NSNotification.Name(rawValue:CONSTANTS.FavouritesChanged),
+                       object: nil)
+    }
+    
+    func favouritesDidChanged(notification: NSNotification){
+        self.fetchedResultsController = createBooksFetch(context: self.context!)
+        saveContext(context: context!)
+        self.collectionView.reloadData()
     }
 
 
