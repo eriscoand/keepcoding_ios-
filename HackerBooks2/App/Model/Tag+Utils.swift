@@ -16,7 +16,7 @@ extension Tag {
         let arr = s.characters.split{$0 == ","}.map(String.init)
         for each in arr{
             let tag = Tag(context: context)
-            tag.name = each
+            tag.name = each.trimmingCharacters(in: .whitespacesAndNewlines).capitalized
             tag.order = 999
             ret.insert(tag)
         }

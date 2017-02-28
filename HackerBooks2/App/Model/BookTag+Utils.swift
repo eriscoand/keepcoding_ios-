@@ -17,7 +17,8 @@ extension BookTag{
         
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "tag.name", ascending: true),
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "tag.order", ascending: true),
+                                        NSSortDescriptor(key: "tag.name", ascending: true),
                                         NSSortDescriptor(key: "book.title", ascending: true)]
         
         return fetchRequest
