@@ -53,20 +53,17 @@ func decodeBook(book json: JSONDictonary, context: NSManagedObjectContext) throw
         authors = Author.fromStringToSet(s: authorsString, context: context) as NSSet
     }
     
+    book.title = title
+    book.addToAuthors(authors)
+    book.thumbnailUrl = image
+    book.pdfUrl = pdf
+    saveContext(context: context)
+    
     if let tagsString = json["tags"] as? String{
         let tags = Tag.fromStringToSet(s: tagsString, context: context)
         for each in tags{
-            let booktag = BookTag(context: context)
-            booktag.book = book
-            booktag.tag = each
+            let _ = BookTag.booktagFromBookTag(book: book, tag: each, context: context)
         }
-    }
-    
-    book.title = title
-    
-    book.addToAuthors(authors)
-    
-    book.thumbnail = image
-    book.pdf = pdf
+    }    
     
 }

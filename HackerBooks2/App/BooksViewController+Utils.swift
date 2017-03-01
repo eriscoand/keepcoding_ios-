@@ -25,6 +25,7 @@ extension BooksViewController:  UICollectionViewDelegate, UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookCell", for: indexPath) as? BookCollectionViewCell
         
         cell?.book = (self.fetchedResultsController?.object(at: indexPath))!
+        cell?.context = self.context
         
         return cell!
     }
@@ -40,4 +41,38 @@ extension BooksViewController:  UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     
+}
+
+extension BooksViewController: UISearchBarDelegate{
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        callFetch()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.text = ""
+        callFetch()
+        self.searchBar.resignFirstResponder()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        callFetch()
+        self.searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        callFetch()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        callFetch()
+        self.searchBar.resignFirstResponder()
+    }
+    
+    func callFetch(){
+        saveContext(context: context!)
+        self.fetchedResultsController = createBooksFetch(context: self.context!, text: self.searchBar.text!)
+        self.collectionView.reloadData()
+    }
+
 }

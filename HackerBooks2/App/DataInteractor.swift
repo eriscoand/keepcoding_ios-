@@ -11,9 +11,18 @@ import UIKit
 
 public class DataInteractor: Interactor {
     
-    public func execute(urlString: String, completion: @escaping (Data) -> Void) {
+    public func pdf(book: Book, completion: @escaping (Data) -> Void) {
         
-        manager.downloadData(urlString: urlString, completion: { (data: Data) in
+        manager.downloadData(urlString: book.pdfUrl!, completion: { (data: Data) in
+            assert(Thread.current == Thread.main)
+            completion(data)
+        }, onError: nil)
+        
+    }
+    
+    public func thumbnail(book: Book, completion: @escaping (Data) -> Void) {
+        
+        manager.downloadData(urlString: book.thumbnailUrl!, completion: { (data: Data) in
             assert(Thread.current == Thread.main)
             completion(data)
         }, onError: nil)

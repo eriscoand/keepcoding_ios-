@@ -7,31 +7,45 @@
 //
 
 import UIKit
+import CoreData
 
 class PDFViewController: UIViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var webView: UIWebView!
     
+    var context: NSManagedObjectContext? = nil
+    
     var booktag: BookTag?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = booktag?.book?.title
         
-        guard let urlPDF = booktag!.book?.pdf else { return }
-        
         activityIndicator.startAnimating()
         
-        DataInteractor(manager: DownloadAsyncGCD()).execute(urlString: urlPDF) { (data: Data) in
-            do{
-                let url = try getInternalUrl(file: urlPDF)
-                self.webView.load(data, mimeType: "application/pdf", textEncodingName: "", baseURL: url.deletingLastPathComponent())
-                self.activityIndicator.stopAnimating()
-            }catch{
-                fatalError("Error: \(error)")
+        if var book = booktag?.book{
+            if let pdf = booktag?.book?.pdf {
+                loadPdf(pdf: pdf.binary as! Data, urlString: book.pdfUrl!)
+            }else{
+                DataInteractor(manager: DownloadAsyncGCD()).pdf(book: book, completion: { (data: Data) in
+                    book = Book.bookFromTitle(title: book.title!, context: self.context)
+                    let pdf = Pdf(context: self.context!)
+                    pdf.book = book
+                    pdf.binary = data as NSData?
+                    saveContext(context: self.context!)
+                    self.loadPdf(pdf: pdf.binary as! Data, urlString: book.pdfUrl!)
+                })
             }
+        }
+    }
+    
+    func loadPdf(pdf: Data, urlString: String){
+        if let url = URL.init(string: urlString){
+            self.webView.load(pdf, mimeType: "application/pdf", textEncodingName: "", baseURL: url.deletingLastPathComponent())
+            self.activityIndicator.stopAnimating()
         }
     }
 

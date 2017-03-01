@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
 class BookCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var bookImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorsLabel: UILabel!
+    
+    var context: NSManagedObjectContext? = nil
     
     var _booktag: BookTag? = nil
     var book: BookTag{
@@ -25,14 +28,27 @@ class BookCollectionViewCell: UICollectionViewCell {
             authorsLabel.text = newValue.book?.authorsString
             
             bookImage.image = UIImage(named: "Dummy")
-            
-            if let th = newValue.book?.thumbnail {
-                DataInteractor(manager: DownloadAsyncGCD()).execute(urlString: th) { (data: Data) in
-                    self.bookImage.image = UIImage(data: data)
+                
+            if var book = newValue.book{
+                if let thumbnail = newValue.book?.thumbnail {
+                    loadThumbnail(thumbnail: thumbnail.binary as! Data)
+                }else{
+                    DataInteractor(manager: DownloadAsyncGCD()).thumbnail(book: book, completion: { (data: Data) in
+                        book = Book.bookFromTitle(title: book.title!, context: self.context)
+                        let thumbnail = Thumbnail(context: self.context!)
+                        thumbnail.book = book
+                        thumbnail.binary = data as NSData?
+                        saveContext(context: self.context!)
+                        self.loadThumbnail(thumbnail: thumbnail.binary as! Data)
+                    })
                 }
             }
             
         }
+    }
+    
+    func loadThumbnail(thumbnail: Data){
+        self.bookImage.image = UIImage(data: thumbnail)
     }
     
 }

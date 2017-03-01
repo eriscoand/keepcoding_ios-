@@ -14,6 +14,7 @@ class BooksViewController: UIViewController {
     var context: NSManagedObjectContext?
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var sectionHeader: UILabel!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var fetchedResultsController: NSFetchedResultsController<BookTag>? = nil
 
@@ -26,9 +27,11 @@ class BooksViewController: UIViewController {
         subscribeFavouritesChanged()
         
         fetchedResultsController?.delegate = self
-
-    }
     
+        searchBar.delegate = self
+        
+    }
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier
@@ -44,20 +47,19 @@ class BooksViewController: UIViewController {
             }
         }
     }
-    
+        
     func subscribeFavouritesChanged(){
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(favouritesDidChanged),
-                       name: NSNotification.Name(rawValue:CONSTANTS.FavouritesChanged),
+                       name: NSNotification.Name(rawValue:CONSTANTS.CollectionViewChanged),
                        object: nil)
     }
     
     func favouritesDidChanged(notification: NSNotification){
-        self.fetchedResultsController = createBooksFetch(context: self.context!)
-        saveContext(context: context!)
+        self.fetchedResultsController = createBooksFetch(context: self.context!, text: searchBar.text!)
         self.collectionView.reloadData()
     }
-
+    
 
 }
 

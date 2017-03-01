@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let navController = window?.rootViewController as? UINavigationController,
             let initialViewController = navController.topViewController as? BooksViewController{
             initialViewController.context = self.context
-            initialViewController.fetchedResultsController = createBooksFetch(context: context!)
+            initialViewController.fetchedResultsController = createBooksFetch(context: context!, text: "")
         }
     }
 

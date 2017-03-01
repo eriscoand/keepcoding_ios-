@@ -19,7 +19,10 @@ public class DownloadAsyncGCD: DownloadAsync {
                 let json_data = try getFileFrom(urlString: urlString)
                 let json = try jsonLoadFromData(dataInput: json_data)
                 try decodeBooks(books: json, context: context)
-                Tag.createOtherTags(context: context)
+                
+                let _ = Tag.tagFromName(name: CONSTANTS.LastReading, context: context, order: "1")
+                let _ = Tag.tagFromName(name: CONSTANTS.FavouritesName, context: context, order: "2")
+                let _ = Tag.tagFromName(name: CONSTANTS.FinishedBooks, context: context, order: "3")
                 
                 saveContext(context: context)
                 
@@ -39,19 +42,21 @@ public class DownloadAsyncGCD: DownloadAsync {
     public func downloadData(urlString: String, completion: @escaping (Data) -> Void, onError:  ErrorClosure?){
         
         DispatchQueue.global().async {
-            do{
-                let data = try getFileFrom(urlString: urlString)
-                    
-                DispatchQueue.main.async {
-                    completion(data)
+            //let data = try getFileFrom(urlString: urlString) //--OLD getting data and saving it to Library
+                
+            var data = Data()
+            if let url = URL.init(string: urlString){
+                do{
+                    data = try Data.init(contentsOf: url)
+                }catch{
+                    data = Data()
                 }
-                    
-            } catch {
-                if let errorClosure = onError {
-                    errorClosure(error)
-                }
-                    
             }
+                
+            DispatchQueue.main.async {
+                completion(data)
+            }
+            
         }
     
     }

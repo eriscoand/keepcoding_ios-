@@ -9,8 +9,11 @@
 import Foundation
 import CoreData
 
-func createBooksFetch(context: NSManagedObjectContext) -> NSFetchedResultsController<BookTag>{
-    let _fetchedResultsController = NSFetchedResultsController(fetchRequest: BookTag.fetchRequestOrderedByName(), managedObjectContext: context, sectionNameKeyPath: "tag.name", cacheName: "Master")
+func createBooksFetch(context: NSManagedObjectContext, text: String) -> NSFetchedResultsController<BookTag>{
+    let _fetchedResultsController = NSFetchedResultsController(fetchRequest: BookTag.fetchRequest(text: text),
+                                                               managedObjectContext: context,
+                                                               sectionNameKeyPath: "tag.name",
+                                                               cacheName: nil)
         
     do {
         try _fetchedResultsController.performFetch()
