@@ -1,8 +1,8 @@
 //
-//  BooksViewControllerFetchedResults.swift
+//  AnnotationsViewControllerFetchedResults.swift
 //  HackerBooks2
 //
-//  Created by Eric Risco de la Torre on 24/02/2017.
+//  Created by Eric Risco de la Torre on 01/03/2017.
 //  Copyright © 2017 ERISCO. All rights reserved.
 //
 
@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 import CoreData
 
-extension BooksViewController: NSFetchedResultsControllerDelegate {
-        
+extension AnnotationsViewController: NSFetchedResultsControllerDelegate {
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
@@ -35,3 +35,4 @@ extension BooksViewController: NSFetchedResultsControllerDelegate {
     }
     
 }
+

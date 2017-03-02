@@ -17,9 +17,9 @@ struct CONSTANTS {
     static let DefaultImage = "bacon.jpg"
     static let DefaultPdf = "bacon_ipsum.pdf"
     
-    static let FavouritesName = "Favourites"
-    static let LastReading = "Last Read"
-    static let FinishedBooks = "FinishedBooks"
+    static let FavouritesName = "⭐️ Favourites"
+    static let LastReading = "📖 Last Read"
+    static let FinishedBooks = "📓 Finished Books"
     
     static let CollectionViewChanged = "CollectionViewChanged"
     

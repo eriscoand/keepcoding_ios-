@@ -19,12 +19,8 @@ public class DownloadAsyncGCD: DownloadAsync {
                 let json_data = try getFileFrom(urlString: urlString)
                 let json = try jsonLoadFromData(dataInput: json_data)
                 try decodeBooks(books: json, context: context)
-                
-                let _ = Tag.tagFromName(name: CONSTANTS.LastReading, context: context, order: "1")
-                let _ = Tag.tagFromName(name: CONSTANTS.FavouritesName, context: context, order: "2")
-                let _ = Tag.tagFromName(name: CONSTANTS.FinishedBooks, context: context, order: "3")
-                
-                saveContext(context: context)
+                                
+                saveContext(context: context, process: true)
                 
                 DispatchQueue.main.async {
                     completion()

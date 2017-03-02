@@ -19,7 +19,7 @@ public func persistentContainer(dbName: String, onError: ((NSError)->Void)? = ni
     return container
 }
 
-public func saveContext(context: NSManagedObjectContext) {
+public func saveContext(context: NSManagedObjectContext, process: Bool = false) {
     if context.hasChanges {
         do {
             try context.save()
@@ -27,6 +27,9 @@ public func saveContext(context: NSManagedObjectContext) {
             let nserror = error as NSError
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
+    }    
+    if(process){
+        context.processPendingChanges()
     }
 }
 

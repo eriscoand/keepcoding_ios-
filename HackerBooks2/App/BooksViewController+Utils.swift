@@ -35,7 +35,7 @@ extension BooksViewController:  UICollectionViewDelegate, UICollectionViewDataSo
         if kind == UICollectionElementKindSectionHeader {
             v = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier:"SectionHeader", for: indexPath)
             let lab = v.subviews[0] as! UILabel
-            lab.text = self.fetchedResultsController?.sections?[indexPath.section].name
+            lab.text = self.fetchedResultsController?.sections?[indexPath.section].name.replacingOccurrences(of: "_", with: "")
         }
         return v
     }
@@ -46,7 +46,7 @@ extension BooksViewController:  UICollectionViewDelegate, UICollectionViewDataSo
 extension BooksViewController: UISearchBarDelegate{
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        callFetch()
+        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -70,8 +70,7 @@ extension BooksViewController: UISearchBarDelegate{
     }
     
     func callFetch(){
-        saveContext(context: context!)
-        self.fetchedResultsController = createBooksFetch(context: self.context!, text: self.searchBar.text!)
+        self.fetchedResultsController = BookTag.fetchController(context: self.context!, text: self.searchBar.text!)
         self.collectionView.reloadData()
     }
 

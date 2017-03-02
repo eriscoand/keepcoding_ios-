@@ -11,33 +11,48 @@ import CoreData
 
 extension Book {
     
-    class func bookFromTitle(title: String, context: NSManagedObjectContext?) -> Book {
+    convenience init (title: String, thumbnailUrl: String = "", pdfUrl: String = "", context: NSManagedObjectContext){
         
-        let bookTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        let entity = NSEntityDescription.entity(forEntityName: Book.entity().name!, in: context)!
         
+        self.init(entity: entity, insertInto: context)
+        self.title = title
+        self.thumbnailUrl = thumbnailUrl
+        self.pdfUrl = pdfUrl
+        
+        saveContext(context: context)
+        
+    }
+    
+    class func get(title: String, thumbnailUrl: String = "", pdfUrl: String = "", context: NSManagedObjectContext?) -> Book{
         let fr = NSFetchRequest<Book>(entityName: Book.entity().name!)
         fr.fetchLimit = 1
         fr.fetchBatchSize = 1
-        fr.predicate = NSPredicate(format: "title == %@", bookTitle)
-        
+        fr.predicate = NSPredicate(format: "(title == %@)", title)
         do{
-            let rows = try context?.fetch(fr)
-            if let r = rows{
-                if r.count > 0{
-                    return r.first!
-                }
+            let result = try context?.fetch(fr)
+            guard let resp = result else{
+                return Book.init(title: title, thumbnailUrl: thumbnailUrl, pdfUrl: pdfUrl, context: context!)
             }
-        }catch{
-            //TODO
+            if(resp.count > 0){
+                return resp.first!
+            }else{
+                return Book.init(title: title, thumbnailUrl: thumbnailUrl, pdfUrl: pdfUrl, context: context!)
+            }
+        } catch{
+            return Book.init(title: title, thumbnailUrl: thumbnailUrl, pdfUrl: pdfUrl, context: context!)
         }
-        
-        let book = Book(context: context!)
-        book.title = bookTitle
-        
-        saveContext(context: context!)
-        
-        return book
+    }
     
+    
+    var authorsString : String{
+        get{
+            var ret = ""
+            for author in authors!{
+                ret += (author as AnyObject).name + " - "
+            }
+            return ret
+        }
     }
     
     class func from(array arr: [Book]) -> Set<Book>{
@@ -50,13 +65,34 @@ extension Book {
         return ret
     }
     
-    var authorsString : String{
-        get{
-            var ret = ""
-            for author in authors!{
-                ret += (author as AnyObject).name + " - "
-            }
-            return ret
+    class func setIsFavourite(booktag: BookTag, context: NSManagedObjectContext) -> Book{
+        
+        let book = Book.get(title: (booktag.book?.title)!, context: context)
+        let tag = Tag.get(name: CONSTANTS.FavouritesName, context: context)
+        let booktag = BookTag.get(book: book, tag: tag, context: context)
+        
+        book.isFavourite = !book.isFavourite
+        
+        if(!book.isFavourite){
+            context.delete(booktag)
         }
+        
+        return book
+        
+    }
+    
+    class func setIsLastReading(booktag: BookTag, context: NSManagedObjectContext){
+        
+        let book = Book.get(title: (booktag.book?.title)!, context: context)
+        let tag = Tag.get(name: CONSTANTS.LastReading, context: context)
+        
+        if(tag != booktag.tag){
+            for bt in tag.booktag!{
+                context.delete(bt as! NSManagedObject)
+            }
+        }
+        
+        let _ = BookTag.get(book: book, tag: tag, context: context)
+        
     }
 }

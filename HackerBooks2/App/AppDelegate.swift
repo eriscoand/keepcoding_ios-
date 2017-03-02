@@ -39,12 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         guard let context = self.context else { return }
-        saveContext(context: context)
+        saveContext(context: context, process: true)
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         guard let context = self.context else { return }
-        saveContext(context: context)
+        saveContext(context: context, process: true)
     }
     
     func loadingViewController(){
@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let navController = window?.rootViewController as? UINavigationController,
             let initialViewController = navController.topViewController as? BooksViewController{
             initialViewController.context = self.context
-            initialViewController.fetchedResultsController = createBooksFetch(context: context!, text: "")
+            initialViewController.fetchedResultsController = BookTag.fetchController(context: context!, text: "")
         }
     }
 

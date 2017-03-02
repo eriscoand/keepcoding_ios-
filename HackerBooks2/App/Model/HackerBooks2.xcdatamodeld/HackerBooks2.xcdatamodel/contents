@@ -38,7 +38,7 @@
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="order" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="proxyForSorting" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="booktag" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookTag" inverseName="tag" inverseEntity="BookTag" syncable="YES"/>
     </entity>
     <entity name="Thumbnail" representedClassName="Thumbnail" syncable="YES" codeGenerationType="class">
@@ -46,13 +46,13 @@
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="thumbnail" inverseEntity="Book" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Annotation" positionX="162" positionY="90" width="128" height="150"/>
         <element name="Author" positionX="-63" positionY="-18" width="128" height="75"/>
         <element name="Book" positionX="250" positionY="45" width="128" height="180"/>
         <element name="BookTag" positionX="144" positionY="63" width="128" height="75"/>
-        <element name="Tag" positionX="522" positionY="-30" width="128" height="90"/>
         <element name="Pdf" positionX="144" positionY="72" width="128" height="75"/>
-        <element name="Thumbnail" positionX="153" positionY="81" width="128" height="75"/>
-        <element name="Annotation" positionX="162" positionY="90" width="128" height="150"/>
         <element name="Photo" positionX="180" positionY="108" width="128" height="75"/>
+        <element name="Tag" positionX="522" positionY="-30" width="128" height="90"/>
+        <element name="Thumbnail" positionX="153" positionY="81" width="128" height="75"/>
     </elements>
 </model>

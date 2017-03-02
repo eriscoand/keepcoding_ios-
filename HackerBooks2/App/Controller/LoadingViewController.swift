@@ -8,7 +8,4 @@
 
 import UIKit
 
-class LoadingViewController: UIViewController {
-
-
-}
+class LoadingViewController: UIViewController {}

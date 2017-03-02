@@ -11,43 +11,51 @@ import CoreData
 
 extension Tag {
     
-    class func tagFromName(name: String, context: NSManagedObjectContext?, order: String = "999") -> Tag{
+    convenience init(name: String, context: NSManagedObjectContext){
+        
+        let entity = NSEntityDescription.entity(forEntityName: Tag.entity().name!, in: context)!
         
         let tagName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        self.init(entity: entity, insertInto: context)
+        self.name = tagName
+        
+        switch tagName
+        {
+        case CONSTANTS.FavouritesName:
+            self.proxyForSorting = "__" + tagName
+        case CONSTANTS.FinishedBooks:
+            self.proxyForSorting = "___" + tagName
+        case CONSTANTS.LastReading:
+            self.proxyForSorting = "____" + tagName
+        default:
+            self.proxyForSorting = tagName
+        }
+        
+        saveContext(context: context)
+    }
+    
+    class func get(name: String, context: NSManagedObjectContext?) -> Tag{
         
         let fr = NSFetchRequest<Tag>(entityName: Tag.entity().name!)
         fr.fetchLimit = 1
         fr.fetchBatchSize = 1
-        fr.predicate = NSPredicate(format: "name == %@", tagName)
+        fr.predicate = NSPredicate(format: "name == %@", name)
         
         do{
-            let rows = try context?.fetch(fr)
-            if let r = rows{
-                if r.count > 0{
-                    return r.first!
-                }
+            let result = try context?.fetch(fr)
+            guard let resp = result else{
+                return Tag.init(name: name, context: context!)
             }
-        }catch{
-            //TODO
+            if(resp.count > 0){
+                return resp.first!
+            }else{
+                return Tag.init(name: name, context: context!)
+            }
+        } catch{
+            return Tag.init(name: name, context: context!)
         }
         
-        let tag = Tag(context: context!)
-        tag.name = tagName
-        tag.order = order
-        
-        saveContext(context: context!)
-        
-        return tag        
-        
-    }
-    
-    class func fromStringToSet(s : String, context: NSManagedObjectContext) -> Set<Tag>{
-        var ret = Set<Tag>()
-        let arr = s.characters.split{$0 == ","}.map(String.init)
-        for each in arr{
-            ret.insert(tagFromName(name: each, context: context))
-        }
-        return ret
     }
     
 }

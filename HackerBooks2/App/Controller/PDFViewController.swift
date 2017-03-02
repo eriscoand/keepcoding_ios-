@@ -14,8 +14,7 @@ class PDFViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var webView: UIWebView!
     
-    var context: NSManagedObjectContext? = nil
-    
+    var context: NSManagedObjectContext? = nil    
     var booktag: BookTag?
     
     
@@ -31,11 +30,8 @@ class PDFViewController: UIViewController {
                 loadPdf(pdf: pdf.binary as! Data, urlString: book.pdfUrl!)
             }else{
                 DataInteractor(manager: DownloadAsyncGCD()).pdf(book: book, completion: { (data: Data) in
-                    book = Book.bookFromTitle(title: book.title!, context: self.context)
-                    let pdf = Pdf(context: self.context!)
-                    pdf.book = book
-                    pdf.binary = data as NSData?
-                    saveContext(context: self.context!)
+                    book = Book.get(title: book.title!, context: self.context!)
+                    let pdf = Pdf.get(book: book, binary: data as NSData, context: self.context!)
                     self.loadPdf(pdf: pdf.binary as! Data, urlString: book.pdfUrl!)
                 })
             }
@@ -48,10 +44,18 @@ class PDFViewController: UIViewController {
             self.activityIndicator.stopAnimating()
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            if identifier == "ShowNotes" {
+                let vc = segue.destination as! AnnotationsViewController
+                if let bt = self.booktag{
+                    vc.book = bt.book!
+                    vc.fetchedResultsController = Annotation.fetchController(book: bt.book!, context: self.context!)
+                }
+                vc.context = self.context
+            }
+        }
     }
 
 }

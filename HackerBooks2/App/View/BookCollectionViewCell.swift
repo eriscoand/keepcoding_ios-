@@ -34,11 +34,8 @@ class BookCollectionViewCell: UICollectionViewCell {
                     loadThumbnail(thumbnail: thumbnail.binary as! Data)
                 }else{
                     DataInteractor(manager: DownloadAsyncGCD()).thumbnail(book: book, completion: { (data: Data) in
-                        book = Book.bookFromTitle(title: book.title!, context: self.context)
-                        let thumbnail = Thumbnail(context: self.context!)
-                        thumbnail.book = book
-                        thumbnail.binary = data as NSData?
-                        saveContext(context: self.context!)
+                        book = Book.get(title: book.title!, context: self.context!)
+                        let thumbnail = Thumbnail.get(book: book, binary: data as NSData, context: self.context!)
                         self.loadThumbnail(thumbnail: thumbnail.binary as! Data)
                     })
                 }

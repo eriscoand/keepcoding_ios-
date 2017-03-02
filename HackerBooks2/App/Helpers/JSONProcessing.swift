@@ -30,9 +30,7 @@ func decodeBooks(books json: JSONArray, context: NSManagedObjectContext) throws{
     
 }
 
-func decodeBook(book json: JSONDictonary, context: NSManagedObjectContext) throws{
-    
-    let book = Book(context: context)
+func decodeBook(book json: JSONDictonary, context: NSManagedObjectContext) throws{    
     
     var image = CONSTANTS.DefaultImage
     if let urlImageString = json["image_url"] as? String {
@@ -48,21 +46,17 @@ func decodeBook(book json: JSONDictonary, context: NSManagedObjectContext) throw
         throw HackerBookError.wrongJsonFormat
     }
     
-    var authors = NSSet()
     if let authorsString = json["authors"] as? String{
-        authors = Author.fromStringToSet(s: authorsString, context: context) as NSSet
+        let _ = Author.fromStringToSet(s: authorsString, context: context) as NSSet
     }
     
-    book.title = title
-    book.addToAuthors(authors)
-    book.thumbnailUrl = image
-    book.pdfUrl = pdf
-    saveContext(context: context)
+    let book = Book.get(title: title, thumbnailUrl: image, pdfUrl: pdf, context: context)
     
     if let tagsString = json["tags"] as? String{
-        let tags = Tag.fromStringToSet(s: tagsString, context: context)
-        for each in tags{
-            let _ = BookTag.booktagFromBookTag(book: book, tag: each, context: context)
+        let arr = tagsString.characters.split{$0 == ","}.map(String.init)
+        for each in arr{
+            let tag = Tag.get(name: each, context: context)
+            let _ = BookTag.get(book: book, tag: tag, context: context)
         }
     }    
     

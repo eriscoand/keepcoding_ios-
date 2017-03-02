@@ -12,12 +12,10 @@ import CoreData
 class BooksViewController: UIViewController {
     
     var context: NSManagedObjectContext?
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var sectionHeader: UILabel!
-    @IBOutlet weak var searchBar: UISearchBar!
-    
     var fetchedResultsController: NSFetchedResultsController<BookTag>? = nil
-
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,13 +48,13 @@ class BooksViewController: UIViewController {
         
     func subscribeFavouritesChanged(){
         let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(favouritesDidChanged),
+        nc.addObserver(self, selector: #selector(listDidChanged),
                        name: NSNotification.Name(rawValue:CONSTANTS.CollectionViewChanged),
                        object: nil)
     }
     
-    func favouritesDidChanged(notification: NSNotification){
-        self.fetchedResultsController = createBooksFetch(context: self.context!, text: searchBar.text!)
+    func listDidChanged(notification: NSNotification){
+        self.fetchedResultsController = BookTag.fetchController(context: self.context!, text: searchBar.text!)
         self.collectionView.reloadData()
     }
     

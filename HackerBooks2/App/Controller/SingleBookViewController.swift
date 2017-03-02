@@ -15,7 +15,7 @@ class SingleBookViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     var booktag: BookTag? = nil
-    var context: NSManagedObjectContext? = nil
+    var context: NSManagedObjectContext?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +30,8 @@ class SingleBookViewController: UIViewController {
                 loadThumbnail(thumbnail: thumbnail.binary as! Data)
             }else{
                 DataInteractor(manager: DownloadAsyncGCD()).thumbnail(book: book, completion: { (data: Data) in
-                    book = Book.bookFromTitle(title: book.title!, context: self.context)
-                    let thumbnail = Thumbnail(context: self.context!)
-                    thumbnail.book = book
-                    thumbnail.binary = data as NSData?
-                    saveContext(context: self.context!)
+                    book = Book.get(title: book.title!, context: self.context!)
+                    let thumbnail = Thumbnail.get(book: book, binary: data as NSData, context: self.context!)
                     self.loadThumbnail(thumbnail: thumbnail.binary as! Data)
                 })
             }
@@ -47,58 +44,47 @@ class SingleBookViewController: UIViewController {
     }
     
     func reloadView(){
-        if(booktag?.book?.isFavourite)!{
-            favButton.title = CONSTANTS.FavouritesName
-        }else{
-            favButton.title = "!" + CONSTANTS.FavouritesName
+        
+        favButton.title = "!⭐️"
+        if let bt = booktag,
+            let book = bt.book{
+            if(book.isFavourite){
+                favButton.title = "⭐️"
+            }else{
+                favButton.title = "!⭐️"
+            }
         }
+        
     }
     
     func reloadAndNotify(){
         reloadView()
-        notifyFavouritesDidChanged()
-        saveContext(context: context!)
+        notifyListDidChanged()
+        saveContext(context: context!, process: true)
     }
 
     @IBAction func favButtonClicket(_ sender: Any) {
         
-        let book = Book.bookFromTitle(title: (self.booktag?.book?.title)!, context: context)
-        let tag = Tag.tagFromName(name: CONSTANTS.FavouritesName, context: context)
-        
-        let booktag = BookTag.booktagFromBookTag(book: book, tag: tag, context: context)
-        
-        book.isFavourite = !book.isFavourite
-        
-        if(!book.isFavourite){
-            context?.delete(booktag)
-        }
-        
+        self.booktag?.book = Book.setIsFavourite(booktag: self.booktag!, context: self.context!)
         reloadAndNotify()
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == "ShowPDF" {
                 let vc = segue.destination as! PDFViewController
-                vc.booktag = booktag
+                vc.booktag = self.booktag
                 vc.context = self.context
                 
-                let book = Book.bookFromTitle(title: (self.booktag?.book?.title)!, context: context)
-                let tag = Tag.tagFromName(name: CONSTANTS.LastReading, context: context)
-                
-                for bt in tag.booktag!{
-                    context?.delete(bt as! NSManagedObject)
-                }
-                
-                let _ = BookTag.booktagFromBookTag(book: book, tag: tag, context: context)
+                Book.setIsLastReading(booktag: self.booktag!, context: self.context!)
                 
                 reloadAndNotify()
-                
             }
         }
     }
     
-    func notifyFavouritesDidChanged(){
+    func notifyListDidChanged(){
         let nc = NotificationCenter.default
         let notif = NSNotification(name: NSNotification.Name(rawValue: CONSTANTS.CollectionViewChanged),
                                    object: nil)
