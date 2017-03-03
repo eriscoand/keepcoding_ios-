@@ -13,7 +13,7 @@ extension Annotation{
     
     convenience init (book: Book, title: String, text: String, page: Int16 = 0, context: NSManagedObjectContext){
         
-        let entity = NSEntityDescription.entity(forEntityName: Book.entity().name!, in: context)!
+        let entity = NSEntityDescription.entity(forEntityName: Annotation.entity().name!, in: context)!
         
         self.init(entity: entity, insertInto: context)
         
@@ -28,24 +28,18 @@ extension Annotation{
         
     }
     
-    class func get(id: NSManagedObjectID, book: Book, title: String = "", text: String = "", page: Int16 = 0, context: NSManagedObjectContext?) -> Annotation{
-        let fr = NSFetchRequest<Annotation>(entityName: Annotation.entity().name!)
-        fr.fetchLimit = 1
-        fr.fetchBatchSize = 1
-        fr.predicate = NSPredicate(format: "(objectId == %@)", title)
-        do{
-            let result = try context?.fetch(fr)
-            guard let resp = result else{
-                return Annotation.init(book: book, title: title, text: text, context: context!)
-            }
-            if(resp.count > 0){
-                return resp.first!
-            }else{
-                return Annotation.init(book: book, title: title, text: text, context: context!)
-            }
-        } catch{
+    class func get(id: NSManagedObjectID?, book: Book, title: String = "", text: String = "", page: Int16 = 0, context: NSManagedObjectContext?) -> Annotation{
+        
+        if (id == nil){
             return Annotation.init(book: book, title: title, text: text, context: context!)
         }
+        
+        if let obj = context?.object(with: id!) {
+            return obj as! Annotation
+        }else{
+            return Annotation.init(book: book, title: title, text: text, context: context!)
+        }
+        
     }
 
     class func fetchController( book: Book, context: NSManagedObjectContext) -> NSFetchedResultsController<Annotation>{
@@ -78,7 +72,7 @@ extension Annotation{
         let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [bookPredicate])
         fr.predicate = predicate
         
-        fr.sortDescriptors = [NSSortDescriptor(key: "modifiedDate", ascending: true),
+        fr.sortDescriptors = [NSSortDescriptor(key: "modifiedDate", ascending: false),
                               NSSortDescriptor(key: "title", ascending: true)]
         
         return fr

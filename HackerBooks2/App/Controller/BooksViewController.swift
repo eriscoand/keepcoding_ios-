@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 class BooksViewController: UIViewController {
     
@@ -28,6 +29,13 @@ class BooksViewController: UIViewController {
     
         searchBar.delegate = self
         
+        let lastOpened = BookTag.getLastOpened(context: self.context!)
+        if(lastOpened != nil){
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "SingleBookViewController") as! SingleBookViewController
+            vc.context = self.context
+            vc.booktag = lastOpened
+            self.navigationController?.pushViewController(vc, animated: true)
+        }        
     }
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

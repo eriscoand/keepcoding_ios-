@@ -13,6 +13,9 @@
 		3319D0C71E67AE7A00E33ADE /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 3319D0C61E67AE7A00E33ADE /* camera.png */; };
 		3319D0C91E67AF7100E33ADE /* Photo+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0C81E67AF7100E33ADE /* Photo+Utils.swift */; };
 		3319D0CB1E67B3F300E33ADE /* AddEditAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0CA1E67B3F300E33ADE /* AddEditAnnotationViewController.swift */; };
+		3319D0CD1E6890B900E33ADE /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0CC1E6890B900E33ADE /* UserDefaults.swift */; };
+		3319D0CF1E68C68F00E33ADE /* AddEditAnnotationViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0CE1E68C68F00E33ADE /* AddEditAnnotationViewController+Utils.swift */; };
+		3319D0D11E68F57200E33ADE /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0D01E68F57200E33ADE /* DateFormatter.swift */; };
 		335FB6381E618D7A00A7DCD7 /* DownloadAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335FB6371E618D7A00A7DCD7 /* DownloadAsync.swift */; };
 		335FB63A1E618E8A00A7DCD7 /* DownloadAsyncGCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335FB6391E618E8A00A7DCD7 /* DownloadAsyncGCD.swift */; };
 		335FB63C1E619A9700A7DCD7 /* Author+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335FB63B1E619A9700A7DCD7 /* Author+Utils.swift */; };
@@ -57,6 +60,9 @@
 		3319D0C61E67AE7A00E33ADE /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		3319D0C81E67AF7100E33ADE /* Photo+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photo+Utils.swift"; sourceTree = "<group>"; };
 		3319D0CA1E67B3F300E33ADE /* AddEditAnnotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAnnotationViewController.swift; sourceTree = "<group>"; };
+		3319D0CC1E6890B900E33ADE /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		3319D0CE1E68C68F00E33ADE /* AddEditAnnotationViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AddEditAnnotationViewController+Utils.swift"; path = "HackerBooks2/App/Frameworks/AddEditAnnotationViewController+Utils.swift"; sourceTree = SOURCE_ROOT; };
+		3319D0D01E68F57200E33ADE /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		335FB6371E618D7A00A7DCD7 /* DownloadAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadAsync.swift; sourceTree = "<group>"; };
 		335FB6391E618E8A00A7DCD7 /* DownloadAsyncGCD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadAsyncGCD.swift; sourceTree = "<group>"; };
 		335FB63B1E619A9700A7DCD7 /* Author+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Author+Utils.swift"; sourceTree = "<group>"; };
@@ -230,6 +236,7 @@
 				335FB64E1E63799D00A7DCD7 /* FirstTime.swift */,
 				33E6B63F1E5FBBF5005E00C5 /* JSONProcessing.swift */,
 				335FB6461E61A20600A7DCD7 /* Typealias.swift */,
+				3319D0D01E68F57200E33ADE /* DateFormatter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -248,6 +255,7 @@
 			children = (
 				335FB64A1E6227A600A7DCD7 /* BooksViewController+Utils.swift */,
 				33B835421E6785380030A440 /* AnnotationsViewController+Utils.swift */,
+				3319D0CE1E68C68F00E33ADE /* AddEditAnnotationViewController+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -256,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				33E6B6441E5FBCDA005E00C5 /* Bundle.swift */,
+				3319D0CC1E6890B900E33ADE /* UserDefaults.swift */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -356,13 +365,16 @@
 				3319D0C31E67984B00E33ADE /* Thumbnail+Utils.swift in Sources */,
 				33E6B6471E5FBD29005E00C5 /* Errors.swift in Sources */,
 				335FB6471E61A20600A7DCD7 /* Typealias.swift in Sources */,
+				3319D0CF1E68C68F00E33ADE /* AddEditAnnotationViewController+Utils.swift in Sources */,
 				33E6B6401E5FBBF5005E00C5 /* JSONProcessing.swift in Sources */,
 				335FB6381E618D7A00A7DCD7 /* DownloadAsync.swift in Sources */,
 				335FB6451E619EF400A7DCD7 /* Interactor.swift in Sources */,
 				335FB6411E619D9D00A7DCD7 /* JSONInteractor.swift in Sources */,
 				3319D0CB1E67B3F300E33ADE /* AddEditAnnotationViewController.swift in Sources */,
+				3319D0CD1E6890B900E33ADE /* UserDefaults.swift in Sources */,
 				33E6B63E1E5FBBD9005E00C5 /* Files.swift in Sources */,
 				335FB6511E6382CE00A7DCD7 /* BookTag+Utils.swift in Sources */,
+				3319D0D11E68F57200E33ADE /* DateFormatter.swift in Sources */,
 				33B835411E6784FD0030A440 /* AnnotationsViewControllerFetchedResults.swift in Sources */,
 				335FB64D1E6227FB00A7DCD7 /* BookCollectionViewCell.swift in Sources */,
 				33B8353F1E6783810030A440 /* AnnotationsViewController.swift in Sources */,

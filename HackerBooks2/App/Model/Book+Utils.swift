@@ -80,19 +80,6 @@ extension Book {
         return book
         
     }
+
     
-    class func setIsLastReading(booktag: BookTag, context: NSManagedObjectContext){
-        
-        let book = Book.get(title: (booktag.book?.title)!, context: context)
-        let tag = Tag.get(name: CONSTANTS.LastReading, context: context)
-        
-        if(tag != booktag.tag){
-            for bt in tag.booktag!{
-                context.delete(bt as! NSManagedObject)
-            }
-        }
-        
-        let _ = BookTag.get(book: book, tag: tag, context: context)
-        
-    }
 }

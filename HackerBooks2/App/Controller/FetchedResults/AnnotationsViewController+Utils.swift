@@ -13,7 +13,7 @@ import CoreData
 extension AnnotationsViewController:  UICollectionViewDelegate, UICollectionViewDataSource{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 0
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -22,10 +22,10 @@ extension AnnotationsViewController:  UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AnnotationCell", for: indexPath) as? BookCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AnnotationCell", for: indexPath) as? AnnotationCollectionViewCell
         
-        //cell?.book = (self.fetchedResultsController?.object(at: indexPath))!
-        //cell?.context = self.context
+        cell?.annotation = (self.fetchedResultsController?.object(at: indexPath))!
+        cell?.context = self.context
         
         return cell!
     }

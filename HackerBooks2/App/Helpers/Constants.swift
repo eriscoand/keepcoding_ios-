@@ -18,11 +18,13 @@ struct CONSTANTS {
     static let DefaultPdf = "bacon_ipsum.pdf"
     
     static let FavouritesName = "⭐️ Favourites"
-    static let LastReading = "📖 Last Read"
+    static let LastReading = "📖 Last Opened"
     static let FinishedBooks = "📓 Finished Books"
     
     static let CollectionViewChanged = "CollectionViewChanged"
     
     static let SectionHeight = 30
+    
+    static let LastBookOpen = "LastBookOpen"
     
 }

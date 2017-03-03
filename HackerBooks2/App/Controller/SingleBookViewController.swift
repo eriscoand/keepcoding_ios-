@@ -77,7 +77,7 @@ class SingleBookViewController: UIViewController {
                 vc.booktag = self.booktag
                 vc.context = self.context
                 
-                Book.setIsLastReading(booktag: self.booktag!, context: self.context!)
+                BookTag.setLastOpened(booktag: self.booktag!, context: self.context!)
                 
                 reloadAndNotify()
             }

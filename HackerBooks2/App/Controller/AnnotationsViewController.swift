@@ -20,9 +20,13 @@ class AnnotationsViewController: UIViewController{
     override func viewDidLoad(){
         
         super.viewDidLoad()
-        guard let _ = context else { return }
         fetchedResultsController?.delegate = self
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        collectionView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -30,7 +34,19 @@ class AnnotationsViewController: UIViewController{
             switch identifier
             {
             case "AddNote":
-                break                
+                let vc = segue.destination as! AddEditAnnotationViewController
+                vc.book = book!
+                break
+            case "EditNote":
+                let vc = segue.destination as! AddEditAnnotationViewController
+                vc.book = book!
+                
+                let selectedIndex = collectionView.indexPathsForSelectedItems?.last
+                let annotation = fetchedResultsController?.object(at: selectedIndex!)
+                
+                vc.annotation = annotation
+                
+                break
             default:
                 break
             }

@@ -14,6 +14,9 @@ class PDFViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var webView: UIWebView!
     
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var notesbutton: UIBarButtonItem!
+    
     var context: NSManagedObjectContext? = nil    
     var booktag: BookTag?
     
@@ -24,6 +27,8 @@ class PDFViewController: UIViewController {
         self.title = booktag?.book?.title
         
         activityIndicator.startAnimating()
+        
+        disableButtons()
         
         if var book = booktag?.book{
             if let pdf = booktag?.book?.pdf {
@@ -43,17 +48,39 @@ class PDFViewController: UIViewController {
             self.webView.load(pdf, mimeType: "application/pdf", textEncodingName: "", baseURL: url.deletingLastPathComponent())
             self.activityIndicator.stopAnimating()
         }
+        enableButtons()
+    }
+    
+    func enableButtons(){
+        addButton.isEnabled = true
+        notesbutton.isEnabled = true
+    }
+    
+    func disableButtons(){
+        addButton.isEnabled = false
+        notesbutton.isEnabled = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
-            if identifier == "ShowNotes" {
+            switch identifier
+            {
+            case "ShowNotes":
                 let vc = segue.destination as! AnnotationsViewController
+                vc.context = self.context
                 if let bt = self.booktag{
                     vc.book = bt.book!
                     vc.fetchedResultsController = Annotation.fetchController(book: bt.book!, context: self.context!)
                 }
-                vc.context = self.context
+                break
+            case "AddNote":
+                let vc = segue.destination as! AddEditAnnotationViewController
+                if let bt = self.booktag{
+                    vc.book = bt.book!
+                }
+                break
+            default:
+                break
             }
         }
     }
