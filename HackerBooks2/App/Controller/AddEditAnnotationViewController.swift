@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 import CoreLocation
 
-class AddEditAnnotationViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class AddEditAnnotationViewController: UIViewController {
     
     @IBOutlet weak var titleText: UITextField!
     @IBOutlet weak var descriptionText: UITextView!
@@ -103,20 +103,7 @@ class AddEditAnnotationViewController: UIViewController, UITextFieldDelegate, UI
     
     
     @IBAction func shareClicked(_ sender: Any) {
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.titleText.resignFirstResponder()
-        self.view.endEditing(true);
-        return true;
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
-            self.descriptionText.resignFirstResponder()
-            return false
-        }
-        return true
+        loadFacebookShare()
     }
         
 }

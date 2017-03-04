@@ -32,8 +32,7 @@ class MapViewController: UIViewController {
         showLocationsCenteringRegion()
     }
 
-    @IBAction func fitUser(_ sender: Any) {
-        
+    @IBAction func fitUser(_ sender: Any) {        
         let authStatus = CLLocationManager.authorizationStatus()
         if authStatus == .notDetermined {
             locationManager?.requestWhenInUseAuthorization()

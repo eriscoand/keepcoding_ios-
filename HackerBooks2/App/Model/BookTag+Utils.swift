@@ -40,9 +40,22 @@ extension BookTag{
         }
     }
     
-    
     class func getLastOpened(context: NSManagedObjectContext) -> BookTag?{
-        return UserDefaults.loadBookLastOpen(context: context)
+        
+        var returnBookTag: BookTag? = nil
+        
+        if let lastOpened = NSUbiquitousKeyValueStore.loadBookLastOpen(context: context){  //TRY to get Last book from iCloud
+            returnBookTag = lastOpened
+        }else if let lastOpened = UserDefaults.loadBookLastOpen(context: context) {  //TRY to get Last book from UserDefaults
+            returnBookTag = lastOpened
+        }
+        
+        if let book = returnBookTag?.book, let tag = returnBookTag?.tag {
+            return BookTag.get(book: book, tag: tag, context: context)
+        }
+        
+        return nil
+        
     }
     
     class func setLastOpened(booktag: BookTag, context: NSManagedObjectContext){
@@ -51,7 +64,8 @@ extension BookTag{
         let book = Book.get(title: (booktag.book?.title)!, context: context)
         let booktag = BookTag.get(book: book, tag: tag, context: context)
         
-        UserDefaults.saveBookTagLastOpen(booktag: booktag)
+        UserDefaults.saveBookTagLastOpen(booktag: booktag)  //SAVE to UserDefaults
+        NSUbiquitousKeyValueStore.saveBookTagLastOpen(booktag: booktag) //SAVE to iCloud
         
     }
     

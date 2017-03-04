@@ -15,6 +15,7 @@ class SingleBookViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     var booktag: BookTag? = nil
+    var linkedBook: Book? = nil
     var context: NSManagedObjectContext?
 
     override func viewDidLoad() {
@@ -22,6 +23,8 @@ class SingleBookViewController: UIViewController {
         
         self.title = booktag?.book?.title
         reloadView()
+        
+        linkedBook = booktag?.book
         
         imageView.image = UIImage(named: "Dummy")
         
@@ -65,7 +68,7 @@ class SingleBookViewController: UIViewController {
 
     @IBAction func favButtonClicket(_ sender: Any) {
         
-        self.booktag?.book = Book.setIsFavourite(booktag: self.booktag!, context: self.context!)
+        self.booktag?.book = Book.setIsFavourite(book: linkedBook!, context: self.context!)
         reloadAndNotify()
         
     }
@@ -90,5 +93,5 @@ class SingleBookViewController: UIViewController {
                                    object: nil)
         nc.post(notif as Notification)
     }
-
+    
 }

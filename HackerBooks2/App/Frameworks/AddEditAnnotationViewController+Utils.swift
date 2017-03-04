@@ -9,6 +9,25 @@
 import Foundation
 import CoreLocation
 import UIKit
+import Social
+
+extension AddEditAnnotationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.titleText.resignFirstResponder()
+        self.view.endEditing(true);
+        return true;
+    }
+}
+
+extension AddEditAnnotationViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            self.descriptionText.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+}
 
 extension AddEditAnnotationViewController: CLLocationManagerDelegate {
 
@@ -109,8 +128,6 @@ extension AddEditAnnotationViewController: CLLocationManagerDelegate {
     
 }
 
-
-
 extension AddEditAnnotationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func loadLibrary(){
@@ -145,6 +162,22 @@ extension AddEditAnnotationViewController: UIImagePickerControllerDelegate, UINa
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+//SOCIAL
+extension AddEditAnnotationViewController {
+    
+    func loadFacebookShare(){
+        let facebookVC = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        if let facebookVC = facebookVC {
+            facebookVC.setInitialText(titleText.text)
+            if let image = annotationImage.image {
+                facebookVC.add(image)
+            }
+            present(facebookVC, animated: true, completion: nil)
+        }
     }
     
 }

@@ -48,6 +48,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         saveContext(context: context, process: true)
     }
     
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        guard let context = self.context else { return }
+        saveContext(context: context, process: true)
+    }
+    
     func loadingViewController(){
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -66,8 +71,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.injectContextAndFetchToFirstViewController()
         
-        
         self.window?.makeKeyAndVisible()
+        
     }
     
     func injectContextAndFetchToFirstViewController(){

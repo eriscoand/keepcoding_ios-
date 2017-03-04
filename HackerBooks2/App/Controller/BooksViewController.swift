@@ -29,13 +29,13 @@ class BooksViewController: UIViewController {
     
         searchBar.delegate = self
         
-        let lastOpened = BookTag.getLastOpened(context: self.context!)
-        if(lastOpened != nil){
+        if let lastOpened = BookTag.getLastOpened(context: self.context!){
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SingleBookViewController") as! SingleBookViewController
             vc.context = self.context
             vc.booktag = lastOpened
             self.navigationController?.pushViewController(vc, animated: true)
-        }        
+        }
+        
     }
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -62,7 +62,7 @@ class BooksViewController: UIViewController {
     }
     
     func listDidChanged(notification: NSNotification){
-        self.fetchedResultsController = BookTag.fetchController(context: self.context!, text: searchBar.text!)
+        fetchedResultsController = BookTag.fetchController(context: context!, text: "")
         self.collectionView.reloadData()
     }
     

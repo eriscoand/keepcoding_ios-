@@ -65,9 +65,8 @@ extension Book {
         return ret
     }
     
-    class func setIsFavourite(booktag: BookTag, context: NSManagedObjectContext) -> Book{
+    class func setIsFavourite(book: Book, context: NSManagedObjectContext) -> Book{
         
-        let book = Book.get(title: (booktag.book?.title)!, context: context)
         let tag = Tag.get(name: CONSTANTS.FavouritesName, context: context)
         let booktag = BookTag.get(book: book, tag: tag, context: context)
         
