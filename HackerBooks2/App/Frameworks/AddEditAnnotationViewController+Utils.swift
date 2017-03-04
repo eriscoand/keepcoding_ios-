@@ -109,20 +109,43 @@ extension AddEditAnnotationViewController: CLLocationManagerDelegate {
     
 }
 
-extension AddEditAnnotationViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(userText: UITextField!) -> Bool {
-        self.titleText = userText
-        self.titleText.resignFirstResponder()
-        self.view.endEditing(true);
-        return true;
+
+
+extension AddEditAnnotationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func loadLibrary(){
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        
+        imagePicker.modalPresentationStyle = .fullScreen
+        
+        present(imagePicker, animated: true, completion: nil)
     }
+    
+    func loadCamera(){
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        imagePicker.sourceType = .camera
+        imagePicker.allowsEditing = true
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        //TODO RESIZE IMAGE !!!
+        annotationImage.image = info[UIImagePickerControllerEditedImage] as? UIImage
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
-extension AddEditAnnotationViewController: UITextViewDelegate {
-    func textViewShouldReturn(userText: UITextView!) -> Bool {
-        self.descriptionText = userText
-        self.descriptionText.resignFirstResponder()
-        self.view.endEditing(true);
-        return true;
-    }
-}

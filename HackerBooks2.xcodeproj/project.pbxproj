@@ -16,6 +16,9 @@
 		3319D0CD1E6890B900E33ADE /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0CC1E6890B900E33ADE /* UserDefaults.swift */; };
 		3319D0CF1E68C68F00E33ADE /* AddEditAnnotationViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0CE1E68C68F00E33ADE /* AddEditAnnotationViewController+Utils.swift */; };
 		3319D0D11E68F57200E33ADE /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0D01E68F57200E33ADE /* DateFormatter.swift */; };
+		3319D0D31E6A1E4600E33ADE /* Location+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0D21E6A1E4500E33ADE /* Location+Utils.swift */; };
+		3319D0D51E6A23DF00E33ADE /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0D41E6A23DF00E33ADE /* MapPin.swift */; };
+		3319D0D71E6A291B00E33ADE /* MapViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0D61E6A291B00E33ADE /* MapViewController+Utils.swift */; };
 		335FB6381E618D7A00A7DCD7 /* DownloadAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335FB6371E618D7A00A7DCD7 /* DownloadAsync.swift */; };
 		335FB63A1E618E8A00A7DCD7 /* DownloadAsyncGCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335FB6391E618E8A00A7DCD7 /* DownloadAsyncGCD.swift */; };
 		335FB63C1E619A9700A7DCD7 /* Author+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335FB63B1E619A9700A7DCD7 /* Author+Utils.swift */; };
@@ -63,6 +66,9 @@
 		3319D0CC1E6890B900E33ADE /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		3319D0CE1E68C68F00E33ADE /* AddEditAnnotationViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AddEditAnnotationViewController+Utils.swift"; path = "HackerBooks2/App/Frameworks/AddEditAnnotationViewController+Utils.swift"; sourceTree = SOURCE_ROOT; };
 		3319D0D01E68F57200E33ADE /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		3319D0D21E6A1E4500E33ADE /* Location+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Location+Utils.swift"; sourceTree = "<group>"; };
+		3319D0D41E6A23DF00E33ADE /* MapPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
+		3319D0D61E6A291B00E33ADE /* MapViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MapViewController+Utils.swift"; path = "HackerBooks2/App/Controller/MapViewController+Utils.swift"; sourceTree = SOURCE_ROOT; };
 		335FB6371E618D7A00A7DCD7 /* DownloadAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadAsync.swift; sourceTree = "<group>"; };
 		335FB6391E618E8A00A7DCD7 /* DownloadAsyncGCD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadAsyncGCD.swift; sourceTree = "<group>"; };
 		335FB63B1E619A9700A7DCD7 /* Author+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Author+Utils.swift"; sourceTree = "<group>"; };
@@ -179,6 +185,7 @@
 				3319D0C21E67984B00E33ADE /* Thumbnail+Utils.swift */,
 				33B835441E678DB10030A440 /* Annotation+Utils.swift */,
 				3319D0C81E67AF7100E33ADE /* Photo+Utils.swift */,
+				3319D0D21E6A1E4500E33ADE /* Location+Utils.swift */,
 				33E6B6031E5F8DAA005E00C5 /* HackerBooks2.xcdatamodeld */,
 			);
 			path = Model;
@@ -237,6 +244,7 @@
 				33E6B63F1E5FBBF5005E00C5 /* JSONProcessing.swift */,
 				335FB6461E61A20600A7DCD7 /* Typealias.swift */,
 				3319D0D01E68F57200E33ADE /* DateFormatter.swift */,
+				3319D0D41E6A23DF00E33ADE /* MapPin.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -256,6 +264,7 @@
 				335FB64A1E6227A600A7DCD7 /* BooksViewController+Utils.swift */,
 				33B835421E6785380030A440 /* AnnotationsViewController+Utils.swift */,
 				3319D0CE1E68C68F00E33ADE /* AddEditAnnotationViewController+Utils.swift */,
+				3319D0D61E6A291B00E33ADE /* MapViewController+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -346,10 +355,12 @@
 			files = (
 				3319D0C11E67975C00E33ADE /* Pdf+Utils.swift in Sources */,
 				33E6B63A1E5FB99F005E00C5 /* BooksViewControllerFetchedResults.swift in Sources */,
+				3319D0D31E6A1E4600E33ADE /* Location+Utils.swift in Sources */,
 				335FB63A1E618E8A00A7DCD7 /* DownloadAsyncGCD.swift in Sources */,
 				33E6B6451E5FBCDA005E00C5 /* Bundle.swift in Sources */,
 				335FB64B1E6227A600A7DCD7 /* BooksViewController+Utils.swift in Sources */,
 				3319D0C51E67ADA600E33ADE /* AnnotationCollectionViewCell.swift in Sources */,
+				3319D0D71E6A291B00E33ADE /* MapViewController+Utils.swift in Sources */,
 				335FB6491E61A2BC00A7DCD7 /* CoreDataManager.swift in Sources */,
 				33E6B5FF1E5F8DAA005E00C5 /* BooksViewController.swift in Sources */,
 				335FB6431E619ECC00A7DCD7 /* DataInteractor.swift in Sources */,
@@ -365,6 +376,7 @@
 				3319D0C31E67984B00E33ADE /* Thumbnail+Utils.swift in Sources */,
 				33E6B6471E5FBD29005E00C5 /* Errors.swift in Sources */,
 				335FB6471E61A20600A7DCD7 /* Typealias.swift in Sources */,
+				3319D0D51E6A23DF00E33ADE /* MapPin.swift in Sources */,
 				3319D0CF1E68C68F00E33ADE /* AddEditAnnotationViewController+Utils.swift in Sources */,
 				33E6B6401E5FBBF5005E00C5 /* JSONProcessing.swift in Sources */,
 				335FB6381E618D7A00A7DCD7 /* DownloadAsync.swift in Sources */,

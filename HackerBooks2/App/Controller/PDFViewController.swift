@@ -16,6 +16,7 @@ class PDFViewController: UIViewController {
     
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var notesbutton: UIBarButtonItem!
+    @IBOutlet weak var mapButton: UIBarButtonItem!
     
     var context: NSManagedObjectContext? = nil    
     var booktag: BookTag?
@@ -54,11 +55,13 @@ class PDFViewController: UIViewController {
     func enableButtons(){
         addButton.isEnabled = true
         notesbutton.isEnabled = true
+        mapButton.isEnabled = true
     }
     
     func disableButtons(){
         addButton.isEnabled = false
         notesbutton.isEnabled = false
+        mapButton.isEnabled = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -77,6 +80,13 @@ class PDFViewController: UIViewController {
                 let vc = segue.destination as! AddEditAnnotationViewController
                 if let bt = self.booktag{
                     vc.book = bt.book!
+                }
+                break
+            case "ShowMap":
+                let vc = segue.destination as! MapViewController
+                if let bt = self.booktag{
+                    vc.book = bt.book!
+                    vc.fetchedResultsController = Annotation.fetchController(book: bt.book!, context: self.context!)
                 }
                 break
             default:

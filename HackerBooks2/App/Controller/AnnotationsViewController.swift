@@ -21,6 +21,7 @@ class AnnotationsViewController: UIViewController{
         
         super.viewDidLoad()
         fetchedResultsController?.delegate = self
+        collectionView.reloadData()
         
     }
     
@@ -28,6 +29,7 @@ class AnnotationsViewController: UIViewController{
         super.viewDidAppear(true)
         collectionView.reloadData()
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
@@ -46,6 +48,11 @@ class AnnotationsViewController: UIViewController{
                 
                 vc.annotation = annotation
                 
+                break
+            case "ShowMap":
+                let vc = segue.destination as! MapViewController
+                vc.book = book
+                vc.fetchedResultsController = Annotation.fetchController(book: book!, context: self.context!)
                 break
             default:
                 break

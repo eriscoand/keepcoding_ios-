@@ -10,30 +10,38 @@ import UIKit
 import CoreData
 import MapKit
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController {
 
-    var fetchedResultsController: NSFetchedResultsController<BookTag>? = nil
+    var fetchedResultsController: NSFetchedResultsController<Annotation>? = nil
     var locationManager : CLLocationManager?
     var location: CLLocation?
+    
+    var book: Book?
+    
+    var locationList: [MapPin]?
     
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        locationManager = CLLocationManager()
-        locationManager?.requestWhenInUseAuthorization()
-        locationManager?.delegate = self
-        locationManager?.startUpdatingLocation()
-        
-        let location = CLLocation.init(latitude: 51.51, longitude: -0.11)
-        self.mapView.setCenter(location.coordinate, animated: true)
-        
+        populateLocationList()
+        showLocationsCenteringRegion()
     }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = locations.last
+        
+    @IBAction func fitLocationsClick(_ sender: Any) {
+        showLocationsCenteringRegion()
     }
-    
 
+    @IBAction func fitUser(_ sender: Any) {
+        
+        let authStatus = CLLocationManager.authorizationStatus()
+        if authStatus == .notDetermined {
+            locationManager?.requestWhenInUseAuthorization()
+            return
+        }
+        
+        let region = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, 1000, 1000)
+        mapView.setRegion(mapView.regionThatFits(region), animated: true)
+    }
+    
 }

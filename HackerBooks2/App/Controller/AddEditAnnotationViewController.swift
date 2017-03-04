@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 import CoreLocation
 
-class AddEditAnnotationViewController: UIViewController {
+class AddEditAnnotationViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var titleText: UITextField!
     @IBOutlet weak var descriptionText: UITextView!
@@ -26,8 +26,7 @@ class AddEditAnnotationViewController: UIViewController {
     var book: Book!
     
     var locationEnabled = false
-    var timer: Timer?
-    
+    var timer: Timer?    
     let locManager = CLLocationManager()
     var loc: CLLocation?
     var coor: CLLocationCoordinate2D?
@@ -42,6 +41,11 @@ class AddEditAnnotationViewController: UIViewController {
             dateCreation.text = formatDate(editAnnotation.creationDate as! Date)
             dateModify.text = formatDate(editAnnotation.modifiedDate as! Date)
             pageNumber.text = editAnnotation.page.description
+            
+            if let image = editAnnotation.photo?.binary {
+                annotationImage.image = UIImage(data:image as Data,scale:1.0)
+            }
+            
         }else{
             self.annotationImage.image = UIImage(named: "camera")
             dateCreation.text = formatDate(Date())
@@ -54,7 +58,7 @@ class AddEditAnnotationViewController: UIViewController {
         handleLocation()
         
     }
-        
+    
     @IBAction func saveClicked(_ sender: Any) {
         guard let context = book?.managedObjectContext else { return }
         
@@ -68,15 +72,51 @@ class AddEditAnnotationViewController: UIViewController {
             annotation?.page = number
         }
         
+        if(locationEnabled){
+            if let coor = loc?.coordinate{
+                let l = Location.init(annotation: annotation!, lat: coor.latitude, lng: coor.longitude, address: directionText.text, context: context)
+                l.lat = coor.latitude
+                l.long = coor.longitude
+                l.address = directionText.text
+            }
+        }
+        
+        if let img = annotationImage.image {
+            let data = UIImagePNGRepresentation(img) as NSData?
+            let _ = Photo.init(annotation: annotation!, binary: data, context: context)
+        }
+        
         saveContext(context: context, process: true)
         
         let _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func cameraClicked(_ sender: Any) {
+        if(UIImagePickerController.isSourceTypeAvailable(.camera)){
+            loadCamera()
+        }
     }
     
+    @IBAction func galleryClicked(_ sender: Any) {
+        loadLibrary()
+    }
+    
+    
     @IBAction func shareClicked(_ sender: Any) {
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.titleText.resignFirstResponder()
+        self.view.endEditing(true);
+        return true;
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            self.descriptionText.resignFirstResponder()
+            return false
+        }
+        return true
     }
         
 }

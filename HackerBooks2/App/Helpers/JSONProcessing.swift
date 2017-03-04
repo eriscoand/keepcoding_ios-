@@ -46,11 +46,12 @@ func decodeBook(book json: JSONDictonary, context: NSManagedObjectContext) throw
         throw HackerBookError.wrongJsonFormat
     }
     
-    if let authorsString = json["authors"] as? String{
-        let _ = Author.fromStringToSet(s: authorsString, context: context) as NSSet
-    }
-    
     let book = Book.get(title: title, thumbnailUrl: image, pdfUrl: pdf, context: context)
+    
+    if let authorsString = json["authors"] as? String{
+        let authors = Author.fromStringToSet(s: authorsString, context: context) as NSSet
+        book.authors = authors
+    }
     
     if let tagsString = json["tags"] as? String{
         let arr = tagsString.characters.split{$0 == ","}.map(String.init)

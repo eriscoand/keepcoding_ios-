@@ -47,7 +47,7 @@ extension Annotation{
         let frc = NSFetchedResultsController(fetchRequest: Annotation.fetchRequest(book: book),
                                              managedObjectContext: context,
                                              sectionNameKeyPath: nil,
-                                             cacheName: "Annotation")
+                                             cacheName: nil)
         
         do {
             try frc.performFetch()
