@@ -28,7 +28,7 @@
 - Se crean los dos tags "últimos libros leídos" y "libros leídos". Lós últimos leídos se eliminan del tag "Recent" cuando se inicia la aplicación si estos se abrieron hace más de 7 dias.
 
 - Para que el usuario pudiera añadir subrayados solo se me ocurren dos opciones. 
-    - La primera sería poner una vista por encima del PDF. Detectar un "Long press gesture" y por las "coordenadas" en el pdf que ha hecho el gesture guardar-lo en BBDD. Después pintar por encima del pdf imágenes con transparència.
+    - La primera sería poner una vista por encima del PDF. Detectar un "Long press gesture" y por las "coordenadas" en el pdf que ha hecho el gesture guardar-lo en BBDD. Después pintar por encima del pdf imágenes con transparencia.
     - La segunda sería utilizar algún framework (seguro que alguien lo tiene hecho) que lo haga xD
     
 ##Super Desafío 
