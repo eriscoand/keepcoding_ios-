@@ -11,6 +11,7 @@ import CoreData
 
 extension Pdf{
     
+    //Convenience init from book, data and number of pages
     convenience init(book: Book, binary: NSData?, numberOfPages: Int? = 0, context: NSManagedObjectContext){
         
         let entity = NSEntityDescription.entity(forEntityName: Pdf.entity().name!, in: context)!
@@ -27,6 +28,7 @@ extension Pdf{
         
     }
     
+    //Gets a PDF from DB. If not exists it creates one
     class func get(book: Book, binary: NSData? = nil, numberOfPages: Int? = 0, context: NSManagedObjectContext?) -> Pdf{
         let fr = NSFetchRequest<Pdf>(entityName: Pdf.entity().name!)
         fr.fetchLimit = 1

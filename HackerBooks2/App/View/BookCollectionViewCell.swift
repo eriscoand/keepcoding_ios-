@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+//View Cell class for Book Collection View
 class BookCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var bookImage: UIImageView!
@@ -29,6 +30,7 @@ class BookCollectionViewCell: UICollectionViewCell {
             titleLabel.text = newValue.book?.title
             authorsLabel.text = newValue.book?.authorsString
             
+            //If the pdf has been opened already one time
             if let pdf = book.book?.pdf{
                 readedLabel.isHidden = false
                 if let b = book.book{
@@ -45,7 +47,7 @@ class BookCollectionViewCell: UICollectionViewCell {
             }
             
             bookImage.image = UIImage(named: "Dummy")
-                
+            
             if var book = newValue.book{
                 
                 if book.isFavourite{
@@ -57,6 +59,7 @@ class BookCollectionViewCell: UICollectionViewCell {
                 if let thumbnail = newValue.book?.thumbnail {
                     loadThumbnail(thumbnail: thumbnail.binary as! Data)
                 }else{
+                    //Download Image if not done it yet
                     DataInteractor(manager: DownloadAsyncGCD()).thumbnail(book: book, completion: { (data: Data) in
                         book = Book.get(title: book.title!, context: self.context!)
                         let thumbnail = Thumbnail.get(book: book, binary: data as NSData, context: self.context!)

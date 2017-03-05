@@ -28,6 +28,6 @@ struct CONSTANTS {
     
     static let LastBookOpen = "LastBookOpen"
     
-    static let RecentDays = 0
+    static let RecentDays = 7
     
 }

@@ -11,6 +11,7 @@ import CoreData
 
 extension Tag {
     
+    //Convenience init from name
     convenience init(name: String, context: NSManagedObjectContext){
         
         let entity = NSEntityDescription.entity(forEntityName: Tag.entity().name!, in: context)!
@@ -20,6 +21,7 @@ extension Tag {
         self.init(entity: entity, insertInto: context)
         self.name = tagName
         
+        //By default Proxy for sorting is own tag name. Adding _ for being in first place
         switch tagName
         {
         case CONSTANTS.FavouritesName:
@@ -35,6 +37,7 @@ extension Tag {
         saveContext(context: context)
     }
     
+    //Gets a Tag from DB. If not exists it creates one
     class func get(name: String, context: NSManagedObjectContext?) -> Tag{
         
         let fr = NSFetchRequest<Tag>(entityName: Tag.entity().name!)

@@ -9,6 +9,7 @@
 import CoreData
 import UIKit
 
+//View Cell class for Annotations Collection View
 class AnnotationCollectionViewCell: UICollectionViewCell {
     
     var context: NSManagedObjectContext? = nil

@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import CoreData
 
+// MARK: - UICollectionViewDelegate - UICollectionViewDataSource
+
 extension BooksViewController:  UICollectionViewDelegate, UICollectionViewDataSource{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -43,11 +45,9 @@ extension BooksViewController:  UICollectionViewDelegate, UICollectionViewDataSo
     
 }
 
+// MARK: - UISearchBarDelegate
+
 extension BooksViewController: UISearchBarDelegate{
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        
-    }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.text = ""

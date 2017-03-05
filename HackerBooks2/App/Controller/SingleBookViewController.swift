@@ -29,7 +29,8 @@ class SingleBookViewController: UIViewController {
             if let thumbnail = b.thumbnail {
                 loadThumbnail(thumbnail: thumbnail.binary as! Data)
             }else{
-                DataInteractor(manager: DownloadAsyncGCD()).thumbnail(book: b, completion: { (data: Data) in
+                //Download image if not downloaded yet
+                DataInteractor().thumbnail(book: b, completion: { (data: Data) in
                     let thumbnail = Thumbnail.get(book: b, binary: data as NSData, context: self.context!)
                     self.loadThumbnail(thumbnail: thumbnail.binary as! Data)
                 })
@@ -38,12 +39,16 @@ class SingleBookViewController: UIViewController {
         
     }
     
+    @IBAction func favButtonClicket(_ sender: Any) {
+        self.book = Book.setIsFavourite(book: book!, context: self.context!)
+        reloadAndNotify()
+    }
+    
     func loadThumbnail(thumbnail: Data){
         self.imageView.image = UIImage(data: thumbnail)
     }
     
     func reloadView(){
-        
         favButton.title = "!⭐️"
         if let book = book{
             if(book.isFavourite){
@@ -52,20 +57,12 @@ class SingleBookViewController: UIViewController {
                 favButton.title = "!⭐️"
             }
         }
-        
     }
     
     func reloadAndNotify(){
         reloadView()
         notifyListDidChanged()
         saveContext(context: context!, process: true)
-    }
-
-    @IBAction func favButtonClicket(_ sender: Any) {
-        
-        self.book = Book.setIsFavourite(book: book!, context: self.context!)
-        reloadAndNotify()
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -75,14 +72,15 @@ class SingleBookViewController: UIViewController {
                 vc.book = self.book
                 vc.context = self.context
                 
-                Book.setLastOpened(book: book!, context: self.context!)
-                Book.recentlyOpened(book: book!, context: self.context!)
+                Book.setLastOpened(book: book!, context: self.context!)  //Set that this book is the last opened
+                Book.recentlyOpened(book: book!, context: self.context!) //Add this book to the tag recent
                 
                 reloadAndNotify()
             }
         }
     }
     
+    //Notifier favourites has changed. Notify BooksViewController to reload fetch an view
     func notifyListDidChanged(){
         let nc = NotificationCenter.default
         let notif = NSNotification(name: NSNotification.Name(rawValue: CONSTANTS.CollectionViewChanged),

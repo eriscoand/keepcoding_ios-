@@ -19,6 +19,7 @@ public func persistentContainer(dbName: String, onError: ((NSError)->Void)? = ni
     return container
 }
 
+//Mark Process to true if you want to process Pending changes
 public func saveContext(context: NSManagedObjectContext, process: Bool = false) {
     if context.hasChanges {
         do {

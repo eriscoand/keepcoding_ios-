@@ -11,6 +11,7 @@ import CoreData
 
 extension Location{
     
+    //Convenience init from annotation, latitude, longitude and address
     convenience init(annotation: Annotation, lat: Double?, lng: Double?, address: String?, context: NSManagedObjectContext){
         
         let entity = NSEntityDescription.entity(forEntityName: Location.entity().name!, in: context)!
@@ -23,6 +24,7 @@ extension Location{
         
     }
     
+    //Gets a Location from DB. If not exists it creates one
     class func get(annotation: Annotation, lat: Double? = 0, lng: Double? = 0, address: String? = "", context: NSManagedObjectContext?) -> Location{
         let fr = NSFetchRequest<Location>(entityName: Location.entity().name!)
         fr.fetchLimit = 1

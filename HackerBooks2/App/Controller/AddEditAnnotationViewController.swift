@@ -40,6 +40,7 @@ class AddEditAnnotationViewController: UIViewController {
             pageNumber.text = p.description
         }
         
+        //If we are editing the annotation is not nil
         if let editAnnotation = annotation {
             titleText.text = editAnnotation.title
             descriptionText.text = editAnnotation.text
@@ -56,6 +57,7 @@ class AddEditAnnotationViewController: UIViewController {
             dateModify.text = formatDate(Date())
         }
         
+        //Kewboard hide
         self.titleText.delegate = self
         self.descriptionText.delegate = self
         
@@ -66,16 +68,19 @@ class AddEditAnnotationViewController: UIViewController {
     @IBAction func saveClicked(_ sender: Any) {
         guard let context = book?.managedObjectContext else { return }
         
+        //Create or get annotation and change his values
         annotation = Annotation.get(id: annotation?.objectID, book: book, context: context)
         annotation?.title = titleText.text!
         annotation?.text = descriptionText.text
         annotation?.modifiedDate = NSDate()
         
+        //Page number
         annotation?.page = 0
         if let number = Int32(pageNumber.text!){
             annotation?.page = number
         }
         
+        //Location
         if(locationEnabled){
             if let coor = loc?.coordinate{
                 let l = Location.init(annotation: annotation!, lat: coor.latitude, lng: coor.longitude, address: directionText.text, context: context)
@@ -85,6 +90,7 @@ class AddEditAnnotationViewController: UIViewController {
             }
         }
         
+        //Image
         if let img = annotationImage.image {
             let data = UIImagePNGRepresentation(img) as NSData?
             let _ = Photo.init(annotation: annotation!, binary: data, context: context)
@@ -92,10 +98,12 @@ class AddEditAnnotationViewController: UIViewController {
         
         saveContext(context: context, process: true)
         
+        //Notify list
         notifyListDidChanged()
         let _ = self.navigationController?.popViewController(animated: true)
     }
     
+    //Notify collection view, list has changed
     func notifyListDidChanged(){
         let nc = NotificationCenter.default
         let notif = NSNotification(name: NSNotification.Name(rawValue: CONSTANTS.AnnotationsViewChanged),

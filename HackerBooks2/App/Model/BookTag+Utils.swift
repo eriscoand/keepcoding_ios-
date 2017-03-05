@@ -11,6 +11,7 @@ import CoreData
 
 extension BookTag{
     
+    //Convenience init from book and tag
     convenience init(book: Book, tag: Tag, context: NSManagedObjectContext){
         let entity = NSEntityDescription.entity(forEntityName: BookTag.entity().name!, in: context)!
         
@@ -20,6 +21,7 @@ extension BookTag{
         
     }
     
+    //Gets a BookTag from DB. If not exists it creates one
     class func get(book: Book, tag: Tag, context: NSManagedObjectContext?) -> BookTag{
         let fr = NSFetchRequest<BookTag>(entityName: BookTag.entity().name!)
         fr.fetchLimit = 1
@@ -40,11 +42,12 @@ extension BookTag{
         }
     }
     
+    //Fetch BookTag Controller
     class func fetchController(context: NSManagedObjectContext, text: String) -> NSFetchedResultsController<BookTag>{
         
         let frc = NSFetchedResultsController(fetchRequest: BookTag.fetchRequest(text: text),
                                             managedObjectContext: context,
-                                            sectionNameKeyPath: "tag.proxyForSorting",
+                                            sectionNameKeyPath: "tag.proxyForSorting",  //Sorting by tag
                                             cacheName: "BookTag")
         
         do {
@@ -57,7 +60,7 @@ extension BookTag{
         return frc
     }
 
-    
+    //Fetch Request for a text
     class func fetchRequest(text: String) -> NSFetchRequest<BookTag>{
         
         let fr = NSFetchRequest<BookTag>(entityName: BookTag.entity().name!)
@@ -68,6 +71,7 @@ extension BookTag{
         if(text != ""){
             let t = text.lowercased()
             
+            //3 predicates, contains tag name, book title or book authors name
             let tagPredicate = NSPredicate(format: "tag.name contains [cd] %@",t)
             let bookPredicate = NSPredicate(format: "book.title contains [cd] %@",t)
             let authorPredicate = NSPredicate(format: "book.authors.name contains [cd] %@",t)
@@ -77,6 +81,7 @@ extension BookTag{
             
         }
         
+        //Sorting
         fr.sortDescriptors = [NSSortDescriptor(key: "tag.proxyForSorting", ascending: true),
                               NSSortDescriptor(key: "book.title", ascending: true)]
         

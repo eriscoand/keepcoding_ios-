@@ -11,6 +11,7 @@ import CoreData
 
 extension NSUbiquitousKeyValueStore{
     
+    //Load last book opened saved it to iCloud
     class func loadBookLastOpen(context: NSManagedObjectContext) -> Book?{
         let defaultValueStore = NSUbiquitousKeyValueStore.default()
         if let uriDefault = defaultValueStore.object(forKey: CONSTANTS.LastBookOpen) as? Data {
@@ -19,6 +20,7 @@ extension NSUbiquitousKeyValueStore{
         return nil
     }
     
+    //Save last book opened saved it to iCloud
     class func saveBookLastOpen(book: Book) {
         let defaultValueStore = NSUbiquitousKeyValueStore.default()
         if let data = Book.archiveUriFrom(book: book) {

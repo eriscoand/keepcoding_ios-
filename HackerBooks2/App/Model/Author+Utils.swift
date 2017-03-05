@@ -11,6 +11,7 @@ import CoreData
 
 extension Author {
     
+    //Convenience init from name
     convenience init(name: String, context: NSManagedObjectContext){
         
         let entity = NSEntityDescription.entity(forEntityName: Author.entity().name!, in: context)!
@@ -23,6 +24,7 @@ extension Author {
         saveContext(context: context)
     }
     
+    //Gets an Author from DB. If not exists it creates one
     class func get(name: String, context: NSManagedObjectContext?) -> Author{
         
         let authorName = name.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -47,6 +49,7 @@ extension Author {
         }
     }
 
+    //String Authors parser
     class func fromStringToSet(s : String, context: NSManagedObjectContext) -> Set<Author>{
         var ret = Set<Author>()
         let arr = s.characters.split{$0 == ","}.map(String.init)

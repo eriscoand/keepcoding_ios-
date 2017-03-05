@@ -12,19 +12,23 @@ import CoreData
 
 public class DownloadAsyncGCD: DownloadAsync {
     
+    //Background Task Identifier
     var backgroundUpdateTask: UIBackgroundTaskIdentifier!
     
+    //Begin the background task
     func beginBackgroundUpdateTask() {
         self.backgroundUpdateTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
             self.endBackgroundUpdateTask()
         })
     }
     
+    //End the background task
     func endBackgroundUpdateTask() {
         UIApplication.shared.endBackgroundTask(self.backgroundUpdateTask)
         self.backgroundUpdateTask = UIBackgroundTaskInvalid
     }
     
+    //Download & Parse Json from url
     public func downloadJson(urlString: String, context: NSManagedObjectContext, completion: @escaping (Void) -> Void, onError:  ErrorClosure?){
         
         DispatchQueue.global().async {
@@ -52,6 +56,7 @@ public class DownloadAsyncGCD: DownloadAsync {
         
     }
     
+    //Download any type of Data from url
     public func downloadData(urlString: String, completion: @escaping (Data) -> Void, onError:  ErrorClosure?){
         
         DispatchQueue.global().async {
@@ -78,6 +83,7 @@ public class DownloadAsyncGCD: DownloadAsync {
     
     }
     
+    //Download a PDF and get the number of pages of it
     public func downloadPDF(urlString: String, completion: @escaping (Data,Int) -> Void, onError:  ErrorClosure?){
         
         DispatchQueue.global().async {
@@ -90,13 +96,15 @@ public class DownloadAsyncGCD: DownloadAsync {
             
             if let url = URL.init(string: urlString){
                 do{
+                    //Get the data
                     data = try Data.init(contentsOf: url)
                     
+                    //Create the document
                     guard let provider = CGDataProvider(data: data as CFData) else{
-                            throw PDFError.notAPDF
+                        throw PDFError.notAPDF
                     }
-                    
                     if let document = CGPDFDocument(provider) {
+                        //Get the number of pages
                         numberOfPages = document.numberOfPages
                     }
                     

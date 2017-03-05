@@ -40,11 +40,10 @@ class PDFViewController: UIViewController {
             if let pdf = b.pdf {
                 loadPdf(pdf: pdf.binary as! Data, urlString: b.pdfUrl!)
             }else{
-                DataInteractor(manager: DownloadAsyncGCD()).pdf(book: b, completion: { (data: Data, numberOfPages: Int) in
+                //Download PDF if not downloaded yet
+                DataInteractor().pdf(book: b, completion: { (data: Data, numberOfPages: Int) in
                     let pdf = Pdf.get(book: b, binary: data as NSData, numberOfPages: numberOfPages, context: self.context!)
-                    
                     self.book?.pdf = pdf
-                    
                     self.loadPdf(pdf: pdf.binary as! Data, urlString: b.pdfUrl!)
        
                 })

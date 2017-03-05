@@ -29,6 +29,7 @@ class BooksViewController: UIViewController {
     
         searchBar.delegate = self
         
+        //If last opened is set on iCloud or UserDefaults load it
         if let lastOpened = Book.getLastOpened(context: self.context!){
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SingleBookViewController") as! SingleBookViewController
             vc.context = self.context
@@ -53,7 +54,8 @@ class BooksViewController: UIViewController {
             }
         }
     }
-        
+    
+    //Observer, Favourites in SingleBookViewController has changed
     func subscribeFavouritesChanged(){
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(listDidChanged),
@@ -61,6 +63,7 @@ class BooksViewController: UIViewController {
                        object: nil)
     }
     
+    //Reload fetch and view
     func listDidChanged(notification: NSNotification){
         fetchedResultsController = BookTag.fetchController(context: context!, text: "")
         self.collectionView.reloadData()

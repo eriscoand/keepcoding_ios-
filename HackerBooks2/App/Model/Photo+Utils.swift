@@ -11,6 +11,7 @@ import CoreData
 
 extension Photo{
     
+    //Convenience init from annotation and Data
     convenience init(annotation: Annotation, binary: NSData?, context: NSManagedObjectContext){
         
         let entity = NSEntityDescription.entity(forEntityName: Photo.entity().name!, in: context)!
@@ -26,6 +27,7 @@ extension Photo{
         
     }
     
+    //Gets a Photo from DB. If not exists it creates one
     class func get(annotation: Annotation, binary: NSData? = nil, context: NSManagedObjectContext?) -> Photo{
         let fr = NSFetchRequest<Photo>(entityName: Photo.entity().name!)
         fr.fetchLimit = 1

@@ -27,7 +27,7 @@ class AnnotationsViewController: UIViewController{
         }
         
         fetchedResultsController?.delegate = self
-        subscribeFavouritesChanged()
+        subscribeAnnotationsChanged()
         collectionView.reloadData()
         
     }
@@ -37,7 +37,7 @@ class AnnotationsViewController: UIViewController{
         collectionView.reloadData()
     }
     
-    func subscribeFavouritesChanged(){
+    func subscribeAnnotationsChanged(){
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(listDidChanged),
                        name: NSNotification.Name(rawValue:CONSTANTS.AnnotationsViewChanged),

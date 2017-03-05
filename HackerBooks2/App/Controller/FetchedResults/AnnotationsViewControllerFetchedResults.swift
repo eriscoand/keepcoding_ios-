@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import CoreData
 
+// MARK: - NSFetchedResultsControllerDelegate for AnnotationsViewController
+
 extension AnnotationsViewController: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {

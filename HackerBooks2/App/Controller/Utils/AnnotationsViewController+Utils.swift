@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import CoreData
 
+// MARK: - UICollectionViewDelegate - UICollectionViewDataSource
+
 extension AnnotationsViewController:  UICollectionViewDelegate, UICollectionViewDataSource{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

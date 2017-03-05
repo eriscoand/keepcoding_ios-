@@ -11,6 +11,8 @@ import CoreData
 
 extension Book {
     
+    // MARK: - Init
+    
     convenience init (title: String, thumbnailUrl: String = "", pdfUrl: String = "", context: NSManagedObjectContext){
         
         let entity = NSEntityDescription.entity(forEntityName: Book.entity().name!, in: context)!
@@ -24,6 +26,9 @@ extension Book {
         
     }
     
+    // MARK: - Get or create
+    
+    //Gets a Book from DB. If not exists it creates one
     class func get(title: String, thumbnailUrl: String = "", pdfUrl: String = "", context: NSManagedObjectContext?) -> Book{
         let fr = NSFetchRequest<Book>(entityName: Book.entity().name!)
         fr.fetchLimit = 1
@@ -44,7 +49,9 @@ extension Book {
         }
     }
     
+    // MARK: - View Utils
     
+    //Used in the view. From the list to a string
     var authorsString : String{
         get{
             var ret = ""
@@ -55,6 +62,7 @@ extension Book {
         }
     }
     
+    //Transform array to set
     class func from(array arr: [Book]) -> Set<Book>{
         var ret = Set<Book>()
         
@@ -65,21 +73,9 @@ extension Book {
         return ret
     }
     
-    class func archiveUriFrom(book: Book) -> Data? {
-        let uri = book.objectID.uriRepresentation()
-        return NSKeyedArchiver.archivedData(withRootObject: uri)
-    }
+    // MARK: - Favourite Handler
     
-    class func bookFrom(archivedURI: Data, context: NSManagedObjectContext) -> Book? {
-        
-        if let uri: URL = NSKeyedUnarchiver.unarchiveObject(with: archivedURI) as? URL, let nid = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: uri) {
-            let book = context.object(with: nid) as! Book
-            return book
-        }
-        
-        return nil
-    }
-    
+    //Set a book as favourite and creating or deleting the favourite tag for the book
     class func setIsFavourite(book: Book, context: NSManagedObjectContext) -> Book{
         
         let tag = Tag.get(name: CONSTANTS.FavouritesName, context: context)
@@ -95,6 +91,24 @@ extension Book {
         
     }
     
+    // MARK: - Last Opened Handler
+    
+    //Archive Book before saving it to UserDefaults or iCloud
+    class func archiveUriFrom(book: Book) -> Data? {
+        let uri = book.objectID.uriRepresentation()
+        return NSKeyedArchiver.archivedData(withRootObject: uri)
+    }
+    
+    //Unarchive Book from UserDefaults or iCloud
+    class func bookFrom(archivedURI: Data, context: NSManagedObjectContext) -> Book? {
+        if let uri: URL = NSKeyedUnarchiver.unarchiveObject(with: archivedURI) as? URL, let nid = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: uri) {
+            let book = context.object(with: nid) as! Book
+            return book
+        }
+        return nil
+    }
+    
+    //Get last opened. First we try iCloud, if not we get from UserDefaults
     class func getLastOpened(context: NSManagedObjectContext) -> Book?{
         
         var returnBook: Book? = nil
@@ -113,12 +127,15 @@ extension Book {
         
     }
     
+    //Set Last Opened to UserDefaults and iCloud
     class func setLastOpened(book: Book, context: NSManagedObjectContext){
         
         UserDefaults.saveBookLastOpen(book: book)  //SAVE to UserDefaults
         NSUbiquitousKeyValueStore.saveBookLastOpen(book: book) //SAVE to iCloud
         
     }
+    
+    // MARK: - Recently Opened Handler
     
     class func recentlyOpened(book: Book, context: NSManagedObjectContext){
      
@@ -128,6 +145,8 @@ extension Book {
         book.openedDate = NSDate()
         
     }
+    
+    // MARK: - Finished Handler
     
     class func finished(book: Book, context: NSManagedObjectContext){
         

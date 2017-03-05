@@ -11,6 +11,7 @@ import CoreData
 
 extension Thumbnail{
     
+    //Convenience init from book and data
     convenience init(book: Book, binary: NSData?, context: NSManagedObjectContext){
         
         let entity = NSEntityDescription.entity(forEntityName: Thumbnail.entity().name!, in: context)!
@@ -26,6 +27,7 @@ extension Thumbnail{
         
     }
     
+    //Gets a Thumbnail from DB. If not exists it creates one
     class func get(book: Book, binary: NSData? = nil, context: NSManagedObjectContext?) -> Thumbnail{
         let fr = NSFetchRequest<Thumbnail>(entityName: Thumbnail.entity().name!)
         fr.fetchLimit = 1
