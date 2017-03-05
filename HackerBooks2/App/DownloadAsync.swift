@@ -15,5 +15,6 @@ public protocol DownloadAsync {
     
     func downloadJson(urlString: String, context: NSManagedObjectContext, completion: @escaping (Void) -> Void, onError:  ErrorClosure?)
     func downloadData(urlString: String, completion: @escaping (Data) -> Void, onError:  ErrorClosure?)
+    func downloadPDF(urlString: String, completion: @escaping (Data,Int) -> Void, onError:  ErrorClosure?)
     
 }

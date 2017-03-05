@@ -100,7 +100,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="PHq-Wp-fOe"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="13"/>
+                                                    <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="11"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -111,24 +111,46 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HU0-Ac-eNm">
+                                                    <rect key="frame" x="0.0" y="209" width="160" height="12"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dz3-cR-9tf">
+                                                    <rect key="frame" x="0.0" y="30" width="160" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.89700983502538068" green="0.89700983502538068" blue="0.89700983502538068" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="oAB-N3-MEX" firstAttribute="width" secondItem="orC-71-UJP" secondAttribute="width" id="0xD-UT-cC8"/>
+                                            <constraint firstItem="HU0-Ac-eNm" firstAttribute="width" secondItem="fIQ-dP-fJZ" secondAttribute="width" id="1sU-gI-Yle"/>
                                             <constraint firstItem="oAB-N3-MEX" firstAttribute="centerX" secondItem="orC-71-UJP" secondAttribute="centerX" id="65a-kk-sDA"/>
                                             <constraint firstItem="oAB-N3-MEX" firstAttribute="centerY" secondItem="orC-71-UJP" secondAttribute="centerY" id="7DD-n7-3RD"/>
+                                            <constraint firstItem="dz3-cR-9tf" firstAttribute="width" secondItem="oAB-N3-MEX" secondAttribute="width" id="7Ni-Ws-jaL"/>
                                             <constraint firstItem="fIQ-dP-fJZ" firstAttribute="leading" secondItem="orC-71-UJP" secondAttribute="leading" id="7ZU-4t-HcN"/>
+                                            <constraint firstItem="HU0-Ac-eNm" firstAttribute="height" secondItem="fIQ-dP-fJZ" secondAttribute="height" id="H2M-fG-IQl"/>
+                                            <constraint firstItem="HU0-Ac-eNm" firstAttribute="centerX" secondItem="fIQ-dP-fJZ" secondAttribute="centerX" id="Hmf-ty-Vo6"/>
                                             <constraint firstItem="ein-Re-leG" firstAttribute="leading" secondItem="orC-71-UJP" secondAttribute="leading" id="IfA-xE-lFp"/>
                                             <constraint firstAttribute="bottom" secondItem="fIQ-dP-fJZ" secondAttribute="bottom" id="Upv-4a-TLd"/>
+                                            <constraint firstItem="dz3-cR-9tf" firstAttribute="top" secondItem="ein-Re-leG" secondAttribute="bottom" id="XIX-L8-J1f"/>
+                                            <constraint firstItem="dz3-cR-9tf" firstAttribute="centerX" secondItem="oAB-N3-MEX" secondAttribute="centerX" id="Y0b-we-ugK"/>
                                             <constraint firstAttribute="trailing" secondItem="fIQ-dP-fJZ" secondAttribute="trailing" id="dnD-ab-ngx"/>
                                             <constraint firstItem="ein-Re-leG" firstAttribute="top" secondItem="orC-71-UJP" secondAttribute="top" id="i2f-ot-7fm"/>
                                             <constraint firstAttribute="trailing" secondItem="ein-Re-leG" secondAttribute="trailing" id="jWB-Qq-30d"/>
                                             <constraint firstAttribute="height" secondItem="oAB-N3-MEX" secondAttribute="height" id="njT-ni-bCt"/>
+                                            <constraint firstItem="fIQ-dP-fJZ" firstAttribute="top" secondItem="HU0-Ac-eNm" secondAttribute="bottom" id="yju-Yp-gAy"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="authorsLabel" destination="fIQ-dP-fJZ" id="HYf-hP-XM8"/>
                                             <outlet property="bookImage" destination="oAB-N3-MEX" id="Jdp-UW-gdi"/>
+                                            <outlet property="favouriteLabel" destination="dz3-cR-9tf" id="lqT-eW-R4y"/>
+                                            <outlet property="readedLabel" destination="HU0-Ac-eNm" id="kyE-af-pMs"/>
                                             <outlet property="titleLabel" destination="ein-Re-leG" id="dBZ-Jj-yHh"/>
                                             <segue destination="hQW-Ee-xtD" kind="show" identifier="ShowSingleBook" id="tYY-nq-vpR"/>
                                         </connections>
@@ -315,6 +337,8 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="jGs-P0-hDA"/>
+                                    <barButtonItem title="Item" id="zkU-xk-AoV"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Mfs-Ir-sP5"/>
                                     <barButtonItem title="Notes" id="B9p-1s-U7A">
                                         <connections>
                                             <segue destination="F9h-O3-SL4" kind="show" identifier="ShowNotes" id="G3h-gb-Nsn"/>
@@ -348,6 +372,7 @@
                         <outlet property="addButton" destination="h9Q-RK-Ern" id="Ne8-SD-u8A"/>
                         <outlet property="mapButton" destination="7Pm-DA-OiH" id="Sre-D0-lsK"/>
                         <outlet property="notesbutton" destination="B9p-1s-U7A" id="0Zy-LW-G6N"/>
+                        <outlet property="numberPagesButton" destination="zkU-xk-AoV" id="AvX-wt-mRu"/>
                         <outlet property="webView" destination="wJR-mo-rdl" id="hBS-EW-gsj"/>
                     </connections>
                 </viewController>
@@ -381,7 +406,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="134" height="137"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="134" height="137"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="135" height="137"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ynN-zK-QiI">
@@ -591,6 +616,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ai3-qg-9QK"/>
+        <segue reference="zkR-fw-qPT"/>
     </inferredMetricsTieBreakers>
 </document>

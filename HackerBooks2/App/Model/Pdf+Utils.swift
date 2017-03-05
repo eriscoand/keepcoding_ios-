@@ -11,7 +11,7 @@ import CoreData
 
 extension Pdf{
     
-    convenience init(book: Book, binary: NSData?, context: NSManagedObjectContext){
+    convenience init(book: Book, binary: NSData?, numberOfPages: Int? = 0, context: NSManagedObjectContext){
         
         let entity = NSEntityDescription.entity(forEntityName: Pdf.entity().name!, in: context)!
         
@@ -21,12 +21,13 @@ extension Pdf{
             self.init(entity: entity, insertInto: context)
             self.book = book
             self.binary = binary
+            self.numberOfPages = Int32(numberOfPages!)
             saveContext(context: context)
         }
         
     }
     
-    class func get(book: Book, binary: NSData? = nil, context: NSManagedObjectContext?) -> Pdf{
+    class func get(book: Book, binary: NSData? = nil, numberOfPages: Int? = 0, context: NSManagedObjectContext?) -> Pdf{
         let fr = NSFetchRequest<Pdf>(entityName: Pdf.entity().name!)
         fr.fetchLimit = 1
         fr.fetchBatchSize = 1
@@ -34,15 +35,15 @@ extension Pdf{
         do{
             let result = try context?.fetch(fr)
             guard let resp = result else{
-                return Pdf.init(book: book, binary: binary, context: context!)
+                return Pdf.init(book: book, binary: binary, numberOfPages: numberOfPages, context: context!)
             }
             if(resp.count > 0){
                 return resp.first!
             }else{
-                return Pdf.init(book: book, binary: binary, context: context!)
+                return Pdf.init(book: book, binary: binary, numberOfPages: numberOfPages, context: context!)
             }
         } catch{
-            return Pdf.init(book: book, binary: binary, context: context!)
+            return Pdf.init(book: book, binary: binary, numberOfPages: numberOfPages, context: context!)
         }
     }
     

@@ -14,6 +14,8 @@ class BookCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bookImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorsLabel: UILabel!
+    @IBOutlet weak var readedLabel: UILabel!
+    @IBOutlet weak var favouriteLabel: UILabel!
     
     var context: NSManagedObjectContext? = nil
     
@@ -27,9 +29,31 @@ class BookCollectionViewCell: UICollectionViewCell {
             titleLabel.text = newValue.book?.title
             authorsLabel.text = newValue.book?.authorsString
             
+            if let pdf = book.book?.pdf{
+                readedLabel.isHidden = false
+                if let b = book.book{
+                    if b.finishedReading {
+                        readedLabel.backgroundColor = UIColor.green
+                        readedLabel.text = "FINISHED!!"
+                    }else{
+                        readedLabel.backgroundColor = UIColor.white
+                        readedLabel.text = "Readed \(b.actualPage.description) of \(pdf.numberOfPages)"
+                    }
+                }
+            }else{
+                readedLabel.isHidden = true
+            }
+            
             bookImage.image = UIImage(named: "Dummy")
                 
             if var book = newValue.book{
+                
+                if book.isFavourite{
+                    favouriteLabel.text = "⭐️"
+                }else{
+                    favouriteLabel.text = ""
+                }
+                
                 if let thumbnail = newValue.book?.thumbnail {
                     loadThumbnail(thumbnail: thumbnail.binary as! Data)
                 }else{

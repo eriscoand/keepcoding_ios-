@@ -11,11 +11,11 @@ import UIKit
 
 public class DataInteractor: Interactor {
     
-    public func pdf(book: Book, completion: @escaping (Data) -> Void) {
+    public func pdf(book: Book, completion: @escaping (Data, Int) -> Void) {
         
-        manager.downloadData(urlString: book.pdfUrl!, completion: { (data: Data) in
+        manager.downloadPDF(urlString: book.pdfUrl!, completion: { (data: Data, numberOfPages: Int) in
             assert(Thread.current == Thread.main)
-            completion(data)
+            completion(data, numberOfPages)
         }, onError: nil)
         
     }

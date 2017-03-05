@@ -3,7 +3,7 @@
     <entity name="Annotation" representedClassName="Annotation" syncable="YES" codeGenerationType="class">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="page" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="annotation" inverseEntity="Book" syncable="YES"/>
@@ -15,7 +15,10 @@
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="authors" inverseEntity="Book" syncable="YES"/>
     </entity>
     <entity name="Book" representedClassName="Book" syncable="YES" codeGenerationType="class">
+        <attribute name="actualPage" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="finishedReading" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isFavourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="openedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="pdfUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnailUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,6 +40,7 @@
     </entity>
     <entity name="Pdf" representedClassName="Pdf" syncable="YES" codeGenerationType="class">
         <attribute name="binary" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="numberOfPages" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="pdf" inverseEntity="Book" syncable="YES"/>
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES" codeGenerationType="class">
@@ -55,9 +59,9 @@
     <elements>
         <element name="Annotation" positionX="162" positionY="90" width="128" height="163"/>
         <element name="Author" positionX="-63" positionY="-18" width="128" height="75"/>
-        <element name="Book" positionX="250" positionY="45" width="128" height="180"/>
+        <element name="Book" positionX="250" positionY="45" width="128" height="223"/>
         <element name="BookTag" positionX="144" positionY="63" width="128" height="75"/>
-        <element name="Pdf" positionX="144" positionY="72" width="128" height="75"/>
+        <element name="Pdf" positionX="144" positionY="72" width="128" height="88"/>
         <element name="Photo" positionX="180" positionY="108" width="128" height="75"/>
         <element name="Tag" positionX="522" positionY="-30" width="128" height="90"/>
         <element name="Thumbnail" positionX="153" positionY="81" width="128" height="75"/>

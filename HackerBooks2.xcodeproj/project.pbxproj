@@ -20,6 +20,8 @@
 		3319D0D51E6A23DF00E33ADE /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0D41E6A23DF00E33ADE /* MapPin.swift */; };
 		3319D0D71E6A291B00E33ADE /* MapViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0D61E6A291B00E33ADE /* MapViewController+Utils.swift */; };
 		3319D0D91E6B07B600E33ADE /* NSUbiquitousKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0D81E6B07B600E33ADE /* NSUbiquitousKeyValueStore.swift */; };
+		3319D0E01E6C464900E33ADE /* PDFViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0DF1E6C464900E33ADE /* PDFViewController+Utils.swift */; };
+		3319D0E41E6C855000E33ADE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3319D0E31E6C855000E33ADE /* Date.swift */; };
 		335FB6381E618D7A00A7DCD7 /* DownloadAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335FB6371E618D7A00A7DCD7 /* DownloadAsync.swift */; };
 		335FB63A1E618E8A00A7DCD7 /* DownloadAsyncGCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335FB6391E618E8A00A7DCD7 /* DownloadAsyncGCD.swift */; };
 		335FB63C1E619A9700A7DCD7 /* Author+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335FB63B1E619A9700A7DCD7 /* Author+Utils.swift */; };
@@ -72,6 +74,8 @@
 		3319D0D61E6A291B00E33ADE /* MapViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MapViewController+Utils.swift"; path = "HackerBooks2/App/Controller/MapViewController+Utils.swift"; sourceTree = SOURCE_ROOT; };
 		3319D0D81E6B07B600E33ADE /* NSUbiquitousKeyValueStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUbiquitousKeyValueStore.swift; sourceTree = "<group>"; };
 		3319D0DA1E6B227A00E33ADE /* HackerBooks2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HackerBooks2.entitlements; sourceTree = "<group>"; };
+		3319D0DF1E6C464900E33ADE /* PDFViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PDFViewController+Utils.swift"; path = "HackerBooks2/App/Model/PDFViewController+Utils.swift"; sourceTree = SOURCE_ROOT; };
+		3319D0E31E6C855000E33ADE /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Date.swift; path = ../Helpers/Date.swift; sourceTree = "<group>"; };
 		335FB6371E618D7A00A7DCD7 /* DownloadAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadAsync.swift; sourceTree = "<group>"; };
 		335FB6391E618E8A00A7DCD7 /* DownloadAsyncGCD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadAsyncGCD.swift; sourceTree = "<group>"; };
 		335FB63B1E619A9700A7DCD7 /* Author+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Author+Utils.swift"; sourceTree = "<group>"; };
@@ -269,6 +273,7 @@
 				33B835421E6785380030A440 /* AnnotationsViewController+Utils.swift */,
 				3319D0CE1E68C68F00E33ADE /* AddEditAnnotationViewController+Utils.swift */,
 				3319D0D61E6A291B00E33ADE /* MapViewController+Utils.swift */,
+				3319D0DF1E6C464900E33ADE /* PDFViewController+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -279,6 +284,7 @@
 				33E6B6441E5FBCDA005E00C5 /* Bundle.swift */,
 				3319D0CC1E6890B900E33ADE /* UserDefaults.swift */,
 				3319D0D81E6B07B600E33ADE /* NSUbiquitousKeyValueStore.swift */,
+				3319D0E31E6C855000E33ADE /* Date.swift */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -382,6 +388,7 @@
 				33B8353B1E64A5380030A440 /* PDFViewController.swift in Sources */,
 				335FB63E1E619AAB00A7DCD7 /* Tag+Utils.swift in Sources */,
 				3319D0C91E67AF7100E33ADE /* Photo+Utils.swift in Sources */,
+				3319D0E41E6C855000E33ADE /* Date.swift in Sources */,
 				33E6B5FD1E5F8DAA005E00C5 /* AppDelegate.swift in Sources */,
 				33B835451E678DB10030A440 /* Annotation+Utils.swift in Sources */,
 				33E6B6051E5F8DAA005E00C5 /* HackerBooks2.xcdatamodeld in Sources */,
@@ -403,6 +410,7 @@
 				33B835411E6784FD0030A440 /* AnnotationsViewControllerFetchedResults.swift in Sources */,
 				335FB64D1E6227FB00A7DCD7 /* BookCollectionViewCell.swift in Sources */,
 				33B8353F1E6783810030A440 /* AnnotationsViewController.swift in Sources */,
+				3319D0E01E6C464900E33ADE /* PDFViewController+Utils.swift in Sources */,
 				335FB64F1E63799D00A7DCD7 /* FirstTime.swift in Sources */,
 				335FB63C1E619A9700A7DCD7 /* Author+Utils.swift in Sources */,
 				33B835431E6785380030A440 /* AnnotationsViewController+Utils.swift in Sources */,

@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = navController
         
+        self.booksInRecent()
         self.injectContextAndFetchToFirstViewController()
         
         self.window?.makeKeyAndVisible()
@@ -82,6 +83,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             initialViewController.fetchedResultsController = BookTag.fetchController(context: context!, text: "")
         }
     }
+    
+    func booksInRecent(){
+        
+        let frc = BookTag.fetchController(context: context!, text: "")
+        let recentTag = Tag.get(name: CONSTANTS.Recent, context: context!)
+        let now = Date()
+        
+        for booktag in frc.fetchedObjects!{
+            
+            if let book = booktag.book,
+                let tag = booktag.tag,
+                let openedDate = book.openedDate{
+                
+                if tag == recentTag{
+                    if Date.difference(day1: openedDate as Date, day2: now) >= CONSTANTS.RecentDays {
+                        context?.delete(booktag)
+                    }                    
+                }
+                
+            }
+            
+        }
+        saveContext(context: context!, process: true)
+        
+        
+    }
+    
 
 }
 

@@ -119,6 +119,22 @@ extension Book {
         NSUbiquitousKeyValueStore.saveBookLastOpen(book: book) //SAVE to iCloud
         
     }
-
+    
+    class func recentlyOpened(book: Book, context: NSManagedObjectContext){
+     
+        let tag = Tag.get(name: CONSTANTS.Recent, context: context)
+        let _ = BookTag.get(book: book, tag: tag, context: context)
+        
+        book.openedDate = NSDate()
+        
+    }
+    
+    class func finished(book: Book, context: NSManagedObjectContext){
+        
+        book.finishedReading = true
+        let tag = Tag.get(name: CONSTANTS.FinishedBooks, context: context)
+        let _ = BookTag.get(book: book, tag: tag, context: context)
+        
+    }
     
 }

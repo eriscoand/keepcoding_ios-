@@ -17,9 +17,11 @@ class PDFViewController: UIViewController {
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var notesbutton: UIBarButtonItem!
     @IBOutlet weak var mapButton: UIBarButtonItem!
+    @IBOutlet weak var numberPagesButton: UIBarButtonItem!
     
     var context: NSManagedObjectContext? = nil    
     var book: Book?
+    var actualPage: Int = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +30,23 @@ class PDFViewController: UIViewController {
         
         activityIndicator.startAnimating()
         
+        self.webView.delegate = self
+        self.webView.scrollView.delegate = self
+        
         disableButtons()
+        reload()
         
         if let b = book {
             if let pdf = b.pdf {
                 loadPdf(pdf: pdf.binary as! Data, urlString: b.pdfUrl!)
             }else{
-                DataInteractor(manager: DownloadAsyncGCD()).pdf(book: b, completion: { (data: Data) in
-                    let pdf = Pdf.get(book: b, binary: data as NSData, context: self.context!)
+                DataInteractor(manager: DownloadAsyncGCD()).pdf(book: b, completion: { (data: Data, numberOfPages: Int) in
+                    let pdf = Pdf.get(book: b, binary: data as NSData, numberOfPages: numberOfPages, context: self.context!)
+                    
+                    self.book?.pdf = pdf
+                    
                     self.loadPdf(pdf: pdf.binary as! Data, urlString: b.pdfUrl!)
+       
                 })
             }
         }
@@ -70,11 +80,13 @@ class PDFViewController: UIViewController {
                 let vc = segue.destination as! AnnotationsViewController
                 vc.context = self.context
                 vc.book = book!
-                vc.fetchedResultsController = Annotation.fetchController(book: book!, context: self.context!)
+                vc.page = self.actualPage
+                vc.fetchedResultsController = Annotation.fetchController(book: book!, pageNumber: self.actualPage, context: self.context!)
                 break
             case "AddNote":
                 let vc = segue.destination as! AddEditAnnotationViewController
                 vc.book = book!
+                vc.page = self.actualPage
                 break
             case "ShowMap":
                 let vc = segue.destination as! MapViewController

@@ -24,6 +24,7 @@ class AddEditAnnotationViewController: UIViewController {
     
     var annotation: Annotation? = nil
     var book: Book!
+    var page: Int? = 0
     
     var locationEnabled = false
     var timer: Timer?    
@@ -35,12 +36,15 @@ class AddEditAnnotationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let p = page {
+            pageNumber.text = p.description
+        }
+        
         if let editAnnotation = annotation {
             titleText.text = editAnnotation.title
             descriptionText.text = editAnnotation.text
             dateCreation.text = formatDate(editAnnotation.creationDate as! Date)
             dateModify.text = formatDate(editAnnotation.modifiedDate as! Date)
-            pageNumber.text = editAnnotation.page.description
             
             if let image = editAnnotation.photo?.binary {
                 annotationImage.image = UIImage(data:image as Data,scale:1.0)
@@ -68,7 +72,7 @@ class AddEditAnnotationViewController: UIViewController {
         annotation?.modifiedDate = NSDate()
         
         annotation?.page = 0
-        if let number = Int16(pageNumber.text!){
+        if let number = Int32(pageNumber.text!){
             annotation?.page = number
         }
         
@@ -88,7 +92,15 @@ class AddEditAnnotationViewController: UIViewController {
         
         saveContext(context: context, process: true)
         
+        notifyListDidChanged()
         let _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    func notifyListDidChanged(){
+        let nc = NotificationCenter.default
+        let notif = NSNotification(name: NSNotification.Name(rawValue: CONSTANTS.AnnotationsViewChanged),
+                                   object: nil)
+        nc.post(notif as Notification)
     }
     
     @IBAction func cameraClicked(_ sender: Any) {

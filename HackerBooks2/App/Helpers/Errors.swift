@@ -15,3 +15,7 @@ enum HackerBookError : Error{
     case NotInLibrary
 }
 
+enum PDFError: Error{
+    case invalidURL
+    case notAPDF
+}

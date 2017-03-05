@@ -23,11 +23,11 @@ extension Tag {
         switch tagName
         {
         case CONSTANTS.FavouritesName:
-            self.proxyForSorting = "__" + tagName
+            self.proxyForSorting = "____" + tagName
         case CONSTANTS.FinishedBooks:
             self.proxyForSorting = "___" + tagName
-        case CONSTANTS.LastReading:
-            self.proxyForSorting = "____" + tagName
+        case CONSTANTS.Recent:
+            self.proxyForSorting = "__" + tagName
         default:
             self.proxyForSorting = tagName
         }

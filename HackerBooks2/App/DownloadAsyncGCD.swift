@@ -78,4 +78,42 @@ public class DownloadAsyncGCD: DownloadAsync {
     
     }
     
+    public func downloadPDF(urlString: String, completion: @escaping (Data,Int) -> Void, onError:  ErrorClosure?){
+        
+        DispatchQueue.global().async {
+            //let data = try getFileFrom(urlString: urlString) //--OLD getting data and saving it to Library
+            
+            self.beginBackgroundUpdateTask()
+            
+            var data = Data()
+            var numberOfPages = 0
+            
+            if let url = URL.init(string: urlString){
+                do{
+                    data = try Data.init(contentsOf: url)
+                    
+                    guard let provider = CGDataProvider(data: data as CFData) else{
+                            throw PDFError.notAPDF
+                    }
+                    
+                    if let document = CGPDFDocument(provider) {
+                        numberOfPages = document.numberOfPages
+                    }
+                    
+                }catch{
+                    data = Data()
+                    numberOfPages = 0
+                }
+            }
+            
+            DispatchQueue.main.async {
+                completion(data,numberOfPages)
+            }
+            
+            self.endBackgroundUpdateTask()
+            
+        }
+        
+    }
+    
 }

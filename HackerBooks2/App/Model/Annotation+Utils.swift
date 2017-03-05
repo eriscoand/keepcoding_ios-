@@ -11,7 +11,7 @@ import CoreData
 
 extension Annotation{
     
-    convenience init (book: Book, title: String, text: String, page: Int16 = 0, context: NSManagedObjectContext){
+    convenience init (book: Book, title: String, text: String, page: Int32 = 0, context: NSManagedObjectContext){
         
         let entity = NSEntityDescription.entity(forEntityName: Annotation.entity().name!, in: context)!
         
@@ -42,9 +42,9 @@ extension Annotation{
         
     }
 
-    class func fetchController( book: Book, context: NSManagedObjectContext) -> NSFetchedResultsController<Annotation>{
+    class func fetchController( book: Book, pageNumber: Int = 0, context: NSManagedObjectContext) -> NSFetchedResultsController<Annotation>{
         
-        let frc = NSFetchedResultsController(fetchRequest: Annotation.fetchRequest(book: book),
+        let frc = NSFetchedResultsController(fetchRequest: Annotation.fetchRequest(book: book, pageNumber: pageNumber),
                                              managedObjectContext: context,
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
@@ -60,15 +60,18 @@ extension Annotation{
     }
     
     
-    class func fetchRequest(book: Book) -> NSFetchRequest<Annotation>{
+    class func fetchRequest(book: Book, pageNumber: Int) -> NSFetchRequest<Annotation>{
         
         let fr = NSFetchRequest<Annotation>(entityName: Annotation.entity().name!)
         
         // Set the batch size to a suitable number.
         fr.fetchBatchSize = 20
         
-        let bookPredicate = NSPredicate(format: "(book == %@)",book)
-            
+        var bookPredicate = NSPredicate(format: "(book == %@)",book)
+        if(pageNumber != 0){
+            bookPredicate = NSPredicate(format: "(book == %@) and (page == %@)",book,pageNumber.description)
+        }
+        
         let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [bookPredicate])
         fr.predicate = predicate
         
