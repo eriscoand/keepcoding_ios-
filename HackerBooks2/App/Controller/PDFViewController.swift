@@ -19,26 +19,24 @@ class PDFViewController: UIViewController {
     @IBOutlet weak var mapButton: UIBarButtonItem!
     
     var context: NSManagedObjectContext? = nil    
-    var booktag: BookTag?
-    
+    var book: Book?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = booktag?.book?.title
+        self.title = book?.title
         
         activityIndicator.startAnimating()
         
         disableButtons()
         
-        if var book = booktag?.book{
-            if let pdf = booktag?.book?.pdf {
-                loadPdf(pdf: pdf.binary as! Data, urlString: book.pdfUrl!)
+        if let b = book {
+            if let pdf = b.pdf {
+                loadPdf(pdf: pdf.binary as! Data, urlString: b.pdfUrl!)
             }else{
-                DataInteractor(manager: DownloadAsyncGCD()).pdf(book: book, completion: { (data: Data) in
-                    book = Book.get(title: book.title!, context: self.context!)
-                    let pdf = Pdf.get(book: book, binary: data as NSData, context: self.context!)
-                    self.loadPdf(pdf: pdf.binary as! Data, urlString: book.pdfUrl!)
+                DataInteractor(manager: DownloadAsyncGCD()).pdf(book: b, completion: { (data: Data) in
+                    let pdf = Pdf.get(book: b, binary: data as NSData, context: self.context!)
+                    self.loadPdf(pdf: pdf.binary as! Data, urlString: b.pdfUrl!)
                 })
             }
         }
@@ -71,23 +69,17 @@ class PDFViewController: UIViewController {
             case "ShowNotes":
                 let vc = segue.destination as! AnnotationsViewController
                 vc.context = self.context
-                if let bt = self.booktag{
-                    vc.book = bt.book!
-                    vc.fetchedResultsController = Annotation.fetchController(book: bt.book!, context: self.context!)
-                }
+                vc.book = book!
+                vc.fetchedResultsController = Annotation.fetchController(book: book!, context: self.context!)
                 break
             case "AddNote":
                 let vc = segue.destination as! AddEditAnnotationViewController
-                if let bt = self.booktag{
-                    vc.book = bt.book!
-                }
+                vc.book = book!
                 break
             case "ShowMap":
                 let vc = segue.destination as! MapViewController
-                if let bt = self.booktag{
-                    vc.book = bt.book!
-                    vc.fetchedResultsController = Annotation.fetchController(book: bt.book!, context: self.context!)
-                }
+                vc.book = book!
+                vc.fetchedResultsController = Annotation.fetchController(book: book!, context: self.context!)
                 break
             default:
                 break

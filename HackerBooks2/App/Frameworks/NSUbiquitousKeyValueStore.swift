@@ -11,17 +11,17 @@ import CoreData
 
 extension NSUbiquitousKeyValueStore{
     
-    class func loadBookLastOpen(context: NSManagedObjectContext) -> BookTag?{
+    class func loadBookLastOpen(context: NSManagedObjectContext) -> Book?{
         let defaultValueStore = NSUbiquitousKeyValueStore.default()
         if let uriDefault = defaultValueStore.object(forKey: CONSTANTS.LastBookOpen) as? Data {
-            return BookTag.bookTagFrom(archivedURI: uriDefault, context: context)
+            return Book.bookFrom(archivedURI: uriDefault, context: context)
         }
         return nil
     }
     
-    class func saveBookTagLastOpen(booktag: BookTag) {
+    class func saveBookLastOpen(book: Book) {
         let defaultValueStore = NSUbiquitousKeyValueStore.default()
-        if let data = BookTag.archiveUriFrom(booktag: booktag) {
+        if let data = Book.archiveUriFrom(book: book) {
             defaultValueStore.set(data, forKey: CONSTANTS.LastBookOpen)
         }
     }

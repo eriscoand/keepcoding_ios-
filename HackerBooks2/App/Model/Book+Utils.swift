@@ -65,6 +65,21 @@ extension Book {
         return ret
     }
     
+    class func archiveUriFrom(book: Book) -> Data? {
+        let uri = book.objectID.uriRepresentation()
+        return NSKeyedArchiver.archivedData(withRootObject: uri)
+    }
+    
+    class func bookFrom(archivedURI: Data, context: NSManagedObjectContext) -> Book? {
+        
+        if let uri: URL = NSKeyedUnarchiver.unarchiveObject(with: archivedURI) as? URL, let nid = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: uri) {
+            let book = context.object(with: nid) as! Book
+            return book
+        }
+        
+        return nil
+    }
+    
     class func setIsFavourite(book: Book, context: NSManagedObjectContext) -> Book{
         
         let tag = Tag.get(name: CONSTANTS.FavouritesName, context: context)
@@ -77,6 +92,31 @@ extension Book {
         }
         
         return book
+        
+    }
+    
+    class func getLastOpened(context: NSManagedObjectContext) -> Book?{
+        
+        var returnBook: Book? = nil
+        
+        if let lastOpened = NSUbiquitousKeyValueStore.loadBookLastOpen(context: context){  //TRY to get Last book from iCloud
+            returnBook = lastOpened
+        }else if let lastOpened = UserDefaults.loadBookLastOpen(context: context) {  //TRY to get Last book from UserDefaults
+            returnBook = lastOpened
+        }
+        
+        if let book = returnBook{
+            return Book.get(title: book.title!, context: context)
+        }
+        
+        return nil
+        
+    }
+    
+    class func setLastOpened(book: Book, context: NSManagedObjectContext){
+        
+        UserDefaults.saveBookLastOpen(book: book)  //SAVE to UserDefaults
+        NSUbiquitousKeyValueStore.saveBookLastOpen(book: book) //SAVE to iCloud
         
     }
 

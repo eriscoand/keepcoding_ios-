@@ -16,8 +16,7 @@ public class JSONInteractor: Interactor {
         
         manager.downloadJson(urlString: urlString, context: context, completion: { (Void) in
             completion()
-        }, onError: nil)
-        
+        }, onError: nil)        
         
     }
     

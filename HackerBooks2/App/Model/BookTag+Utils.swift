@@ -40,50 +40,6 @@ extension BookTag{
         }
     }
     
-    class func getLastOpened(context: NSManagedObjectContext) -> BookTag?{
-        
-        var returnBookTag: BookTag? = nil
-        
-        if let lastOpened = NSUbiquitousKeyValueStore.loadBookLastOpen(context: context){  //TRY to get Last book from iCloud
-            returnBookTag = lastOpened
-        }else if let lastOpened = UserDefaults.loadBookLastOpen(context: context) {  //TRY to get Last book from UserDefaults
-            returnBookTag = lastOpened
-        }
-        
-        if let book = returnBookTag?.book, let tag = returnBookTag?.tag {
-            return BookTag.get(book: book, tag: tag, context: context)
-        }
-        
-        return nil
-        
-    }
-    
-    class func setLastOpened(booktag: BookTag, context: NSManagedObjectContext){
-        
-        let tag = Tag.get(name: (booktag.tag?.name)!, context: context)
-        let book = Book.get(title: (booktag.book?.title)!, context: context)
-        let booktag = BookTag.get(book: book, tag: tag, context: context)
-        
-        UserDefaults.saveBookTagLastOpen(booktag: booktag)  //SAVE to UserDefaults
-        NSUbiquitousKeyValueStore.saveBookTagLastOpen(booktag: booktag) //SAVE to iCloud
-        
-    }
-    
-    class func archiveUriFrom(booktag: BookTag) -> Data? {
-        let uri = booktag.objectID.uriRepresentation()
-        return NSKeyedArchiver.archivedData(withRootObject: uri)
-    }
-    
-    class func bookTagFrom(archivedURI: Data, context: NSManagedObjectContext) -> BookTag? {
-        
-        if let uri: URL = NSKeyedUnarchiver.unarchiveObject(with: archivedURI) as? URL, let nid = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: uri) {
-            let booktag = context.object(with: nid) as! BookTag
-            return booktag
-        }
-        
-        return nil
-    }
-    
     class func fetchController(context: NSManagedObjectContext, text: String) -> NSFetchedResultsController<BookTag>{
         
         let frc = NSFetchedResultsController(fetchRequest: BookTag.fetchRequest(text: text),

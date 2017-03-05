@@ -12,15 +12,15 @@ import CoreData
 
 extension UserDefaults {
     
-    class func saveBookTagLastOpen(booktag: BookTag) {
-        if let data = BookTag.archiveUriFrom(booktag: booktag) {
+    class func saveBookLastOpen(book: Book) {
+        if let data = Book.archiveUriFrom(book: book) {
             UserDefaults.standard.set(data, forKey: CONSTANTS.LastBookOpen)
         }
     }
     
-    class func loadBookLastOpen(context: NSManagedObjectContext) -> BookTag? {
+    class func loadBookLastOpen(context: NSManagedObjectContext) -> Book? {
         if let uriDefault = UserDefaults.standard.object(forKey: CONSTANTS.LastBookOpen) as? Data {
-            return BookTag.bookTagFrom(archivedURI: uriDefault, context: context)
+            return Book.bookFrom(archivedURI: uriDefault, context: context)
         }
         
         return nil

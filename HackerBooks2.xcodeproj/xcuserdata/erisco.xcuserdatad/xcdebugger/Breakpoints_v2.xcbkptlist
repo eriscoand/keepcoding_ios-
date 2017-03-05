@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HackerBooks2/App/AppDelegate.swift"
-            timestampString = "510197649.292999"
+            timestampString = "510406992.298597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "21"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HackerBooks2/App/AppDelegate.swift"
-            timestampString = "510197733.578137"
+            timestampString = "510406992.298597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HackerBooks2/App/AppDelegate.swift"
-            timestampString = "510197733.578137"
+            timestampString = "510406992.298597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HackerBooks2/App/Controller/SingleBookViewController.swift"
-            timestampString = "510334915.623511"
+            timestampString = "510409812.516544"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -282,12 +282,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HackerBooks2/App/Model/Book+Utils.swift"
-            timestampString = "510334915.623511"
+            timestampString = "510409812.516544"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "setIsFavourite(booktag:context:)"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "setIsFavourite(book:context:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -298,12 +298,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HackerBooks2/App/Model/Book+Utils.swift"
-            timestampString = "510334915.623511"
+            timestampString = "510409812.516544"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "setIsFavourite(booktag:context:)"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "setIsFavourite(book:context:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -441,22 +441,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HackerBooks2/App/Controller/PDFViewController.swift"
-            timestampString = "510278669.772214"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "HackerBooks2/App/Model/Annotation+Utils.swift"
             timestampString = "510196259.109389"
             startingColumnNumber = "9223372036854775807"
@@ -570,7 +554,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HackerBooks2/App/Controller/PDFViewController.swift"
-            timestampString = "510278669.772214"
+            timestampString = "510409812.516544"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
@@ -758,28 +742,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HackerBooks2/App/Model/BookTag+Utils.swift"
-            timestampString = "510333825.991545"
+            filePath = "HackerBooks2/App/Controller/SingleBookViewController.swift"
+            timestampString = "510409812.516544"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "67"
             endingLineNumber = "67"
-            landmarkName = "setLastOpened(booktag:context:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HackerBooks2/App/Controller/SingleBookViewController.swift"
-            timestampString = "510334915.623511"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
             landmarkName = "favButtonClicket(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -790,13 +758,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HackerBooks2/App/Model/BookTag+Utils.swift"
-            timestampString = "510333825.991545"
+            filePath = "HackerBooks2/App/Controller/MapViewController+Utils.swift"
+            timestampString = "510401104.246522"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "getLastOpened(context:)"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "populateLocationList()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -806,13 +774,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HackerBooks2/App/Model/BookTag+Utils.swift"
-            timestampString = "510336286.243"
+            filePath = "HackerBooks2/App/Controller/SingleBookViewController.swift"
+            timestampString = "510409812.516544"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "setLastOpened(booktag:context:)"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -29,10 +29,10 @@ class BooksViewController: UIViewController {
     
         searchBar.delegate = self
         
-        if let lastOpened = BookTag.getLastOpened(context: self.context!){
+        if let lastOpened = Book.getLastOpened(context: self.context!){
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SingleBookViewController") as! SingleBookViewController
             vc.context = self.context
-            vc.booktag = lastOpened
+            vc.book = lastOpened
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
@@ -46,7 +46,7 @@ class BooksViewController: UIViewController {
                 let selectedIndex = collectionView.indexPathsForSelectedItems?.last
                 let booktag = fetchedResultsController?.object(at: selectedIndex!)
                 let vc = segue.destination as! SingleBookViewController
-                vc.booktag = booktag
+                vc.book = booktag?.book
                 vc.context = self.context
             default:
                 break

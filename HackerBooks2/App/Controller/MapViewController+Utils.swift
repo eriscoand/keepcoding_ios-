@@ -32,7 +32,7 @@ extension MapViewController: CLLocationManagerDelegate{
     func showLocationsCenteringRegion(){
         
         if let locationList = locationList {
-            if(locationList.count > 1){
+            if(locationList.count > 0){
                 var topLeft = CLLocationCoordinate2D(latitude: -90, longitude: 180)
                 var bottomRight = CLLocationCoordinate2D(latitude: 80, longitude: -180)
                 

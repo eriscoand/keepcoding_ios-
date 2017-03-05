@@ -14,27 +14,23 @@ class SingleBookViewController: UIViewController {
     @IBOutlet weak var favButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
     
-    var booktag: BookTag? = nil
-    var linkedBook: Book? = nil
+    var book: Book? = nil
     var context: NSManagedObjectContext?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = booktag?.book?.title
+        self.title = book?.title
         reloadView()
-        
-        linkedBook = booktag?.book
         
         imageView.image = UIImage(named: "Dummy")
         
-        if var book = booktag?.book{
-            if let thumbnail = booktag?.book?.thumbnail {
+        if let b = book {
+            if let thumbnail = b.thumbnail {
                 loadThumbnail(thumbnail: thumbnail.binary as! Data)
             }else{
-                DataInteractor(manager: DownloadAsyncGCD()).thumbnail(book: book, completion: { (data: Data) in
-                    book = Book.get(title: book.title!, context: self.context!)
-                    let thumbnail = Thumbnail.get(book: book, binary: data as NSData, context: self.context!)
+                DataInteractor(manager: DownloadAsyncGCD()).thumbnail(book: b, completion: { (data: Data) in
+                    let thumbnail = Thumbnail.get(book: b, binary: data as NSData, context: self.context!)
                     self.loadThumbnail(thumbnail: thumbnail.binary as! Data)
                 })
             }
@@ -49,8 +45,7 @@ class SingleBookViewController: UIViewController {
     func reloadView(){
         
         favButton.title = "!⭐️"
-        if let bt = booktag,
-            let book = bt.book{
+        if let book = book{
             if(book.isFavourite){
                 favButton.title = "⭐️"
             }else{
@@ -68,7 +63,7 @@ class SingleBookViewController: UIViewController {
 
     @IBAction func favButtonClicket(_ sender: Any) {
         
-        self.booktag?.book = Book.setIsFavourite(book: linkedBook!, context: self.context!)
+        self.book = Book.setIsFavourite(book: book!, context: self.context!)
         reloadAndNotify()
         
     }
@@ -77,10 +72,10 @@ class SingleBookViewController: UIViewController {
         if let identifier = segue.identifier {
             if identifier == "ShowPDF" {
                 let vc = segue.destination as! PDFViewController
-                vc.booktag = self.booktag
+                vc.book = self.book
                 vc.context = self.context
                 
-                BookTag.setLastOpened(booktag: self.booktag!, context: self.context!)
+                Book.setLastOpened(book: book!, context: self.context!)
                 
                 reloadAndNotify()
             }
