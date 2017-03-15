@@ -1,6 +1,6 @@
 # Práctica iOS Avanzado KeepCoding - HackerBooks
 
-##El Modelo - Esta hecho
+## El Modelo - Esta hecho
 
 - Crear modelo a Core Data
 - Descarga asíncrona del JSON, imágenes y PDF
@@ -8,7 +8,7 @@
 - Listado de libros por tags. 
 - Tag de favoritos y marcado de favoritos por libro
 
-##Interfaz - Esta hecho
+## Interfaz - Esta hecho
 
 - Los libros se muestran en un CollectionView
 - Las anotaciones se muestran en un CollectionView
@@ -19,7 +19,7 @@
 - Las anotaciones tienen una localización por coordenadas y por dirección
 - Las anotaciones se muestran en un mapa
 
-##Desafíos - Esta hecho
+## Desafíos - Esta hecho
 
 - El último libro leído se guarda en UserDefaults y también en NSUbiquitousKeyValueStore en iCloud. 
 - Todas las tareas largas estan dentro de una background task (ver DownloadAsyncGCD)
@@ -31,7 +31,7 @@
     - La primera sería poner una vista por encima del PDF. Detectar un "Long press gesture" y por las "coordenadas" en el pdf que ha hecho el gesture guardar-lo en BBDD. Después pintar por encima del pdf imágenes con transparencia.
     - La segunda sería utilizar algún framework (seguro que alguien lo tiene hecho) que lo haga xD
     
-##Super Desafío 
+## Super Desafío 
 
 No me atrevo a desafiar a Chuck Norris :_D .
 En realidad no me da tiempo antes de la entrega :)
